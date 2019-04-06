@@ -48,6 +48,7 @@ typedef struct __mavlink_sens_power_t {
  * @brief Pack a sens_power message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param adc121_vspb_volt [V]  Power board voltage sensor reading
@@ -56,7 +57,7 @@ typedef struct __mavlink_sens_power_t {
  * @param adc121_cs2_amp [A]  Board current sensor 2 reading
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sens_power_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_sens_power_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                float adc121_vspb_volt, float adc121_cspb_amp, float adc121_cs1_amp, float adc121_cs2_amp)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -78,13 +79,14 @@ static inline uint16_t mavlink_msg_sens_power_pack(uint8_t system_id, uint8_t co
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SENS_POWER;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SENS_POWER_MIN_LEN, MAVLINK_MSG_ID_SENS_POWER_LEN, MAVLINK_MSG_ID_SENS_POWER_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_SENS_POWER_MIN_LEN, MAVLINK_MSG_ID_SENS_POWER_LEN, MAVLINK_MSG_ID_SENS_POWER_CRC);
 }
 
 /**
  * @brief Pack a sens_power message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param adc121_vspb_volt [V]  Power board voltage sensor reading
@@ -93,7 +95,7 @@ static inline uint16_t mavlink_msg_sens_power_pack(uint8_t system_id, uint8_t co
  * @param adc121_cs2_amp [A]  Board current sensor 2 reading
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sens_power_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_sens_power_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    float adc121_vspb_volt,float adc121_cspb_amp,float adc121_cs1_amp,float adc121_cs2_amp)
 {
@@ -116,7 +118,7 @@ static inline uint16_t mavlink_msg_sens_power_pack_chan(uint8_t system_id, uint8
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SENS_POWER;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SENS_POWER_MIN_LEN, MAVLINK_MSG_ID_SENS_POWER_LEN, MAVLINK_MSG_ID_SENS_POWER_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_SENS_POWER_MIN_LEN, MAVLINK_MSG_ID_SENS_POWER_LEN, MAVLINK_MSG_ID_SENS_POWER_CRC);
 }
 
 /**
@@ -124,12 +126,13 @@ static inline uint16_t mavlink_msg_sens_power_pack_chan(uint8_t system_id, uint8
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param sens_power C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sens_power_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sens_power_t* sens_power)
+static inline uint16_t mavlink_msg_sens_power_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_sens_power_t* sens_power)
 {
-    return mavlink_msg_sens_power_pack(system_id, component_id, msg, sens_power->adc121_vspb_volt, sens_power->adc121_cspb_amp, sens_power->adc121_cs1_amp, sens_power->adc121_cs2_amp);
+    return mavlink_msg_sens_power_pack(system_id, component_id, group_id, msg, sens_power->adc121_vspb_volt, sens_power->adc121_cspb_amp, sens_power->adc121_cs1_amp, sens_power->adc121_cs2_amp);
 }
 
 /**
@@ -137,13 +140,14 @@ static inline uint16_t mavlink_msg_sens_power_encode(uint8_t system_id, uint8_t 
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param sens_power C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sens_power_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sens_power_t* sens_power)
+static inline uint16_t mavlink_msg_sens_power_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sens_power_t* sens_power)
 {
-    return mavlink_msg_sens_power_pack_chan(system_id, component_id, chan, msg, sens_power->adc121_vspb_volt, sens_power->adc121_cspb_amp, sens_power->adc121_cs1_amp, sens_power->adc121_cs2_amp);
+    return mavlink_msg_sens_power_pack_chan(system_id, component_id, group_id, chan, msg, sens_power->adc121_vspb_volt, sens_power->adc121_cspb_amp, sens_power->adc121_cs1_amp, sens_power->adc121_cs2_amp);
 }
 
 /**

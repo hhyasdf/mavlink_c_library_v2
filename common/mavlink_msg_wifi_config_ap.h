@@ -43,13 +43,14 @@ typedef struct __mavlink_wifi_config_ap_t {
  * @brief Pack a wifi_config_ap message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param ssid  Name of Wi-Fi network (SSID). Leave it blank to leave it unchanged.
  * @param password  Password. Leave it blank for an open AP.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wifi_config_ap_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_wifi_config_ap_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                const char *ssid, const char *password)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -67,20 +68,21 @@ static inline uint16_t mavlink_msg_wifi_config_ap_pack(uint8_t system_id, uint8_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_WIFI_CONFIG_AP;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_WIFI_CONFIG_AP_MIN_LEN, MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN, MAVLINK_MSG_ID_WIFI_CONFIG_AP_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_WIFI_CONFIG_AP_MIN_LEN, MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN, MAVLINK_MSG_ID_WIFI_CONFIG_AP_CRC);
 }
 
 /**
  * @brief Pack a wifi_config_ap message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param ssid  Name of Wi-Fi network (SSID). Leave it blank to leave it unchanged.
  * @param password  Password. Leave it blank for an open AP.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wifi_config_ap_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_wifi_config_ap_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    const char *ssid,const char *password)
 {
@@ -99,7 +101,7 @@ static inline uint16_t mavlink_msg_wifi_config_ap_pack_chan(uint8_t system_id, u
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_WIFI_CONFIG_AP;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_WIFI_CONFIG_AP_MIN_LEN, MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN, MAVLINK_MSG_ID_WIFI_CONFIG_AP_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_WIFI_CONFIG_AP_MIN_LEN, MAVLINK_MSG_ID_WIFI_CONFIG_AP_LEN, MAVLINK_MSG_ID_WIFI_CONFIG_AP_CRC);
 }
 
 /**
@@ -107,12 +109,13 @@ static inline uint16_t mavlink_msg_wifi_config_ap_pack_chan(uint8_t system_id, u
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param wifi_config_ap C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wifi_config_ap_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_wifi_config_ap_t* wifi_config_ap)
+static inline uint16_t mavlink_msg_wifi_config_ap_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_wifi_config_ap_t* wifi_config_ap)
 {
-    return mavlink_msg_wifi_config_ap_pack(system_id, component_id, msg, wifi_config_ap->ssid, wifi_config_ap->password);
+    return mavlink_msg_wifi_config_ap_pack(system_id, component_id, group_id, msg, wifi_config_ap->ssid, wifi_config_ap->password);
 }
 
 /**
@@ -120,13 +123,14 @@ static inline uint16_t mavlink_msg_wifi_config_ap_encode(uint8_t system_id, uint
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param wifi_config_ap C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wifi_config_ap_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_wifi_config_ap_t* wifi_config_ap)
+static inline uint16_t mavlink_msg_wifi_config_ap_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_wifi_config_ap_t* wifi_config_ap)
 {
-    return mavlink_msg_wifi_config_ap_pack_chan(system_id, component_id, chan, msg, wifi_config_ap->ssid, wifi_config_ap->password);
+    return mavlink_msg_wifi_config_ap_pack_chan(system_id, component_id, group_id, chan, msg, wifi_config_ap->ssid, wifi_config_ap->password);
 }
 
 /**

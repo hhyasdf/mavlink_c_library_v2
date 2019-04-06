@@ -60,6 +60,7 @@ typedef struct __mavlink_video_stream_status_t {
  * @brief Pack a video_stream_status message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param stream_id  Video Stream ID (1 for first, 2 for second, etc.)
@@ -72,7 +73,7 @@ typedef struct __mavlink_video_stream_status_t {
  * @param hfov [deg] Horizontal Field of view
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_video_stream_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_video_stream_status_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t stream_id, uint16_t flags, float framerate, uint16_t resolution_h, uint16_t resolution_v, uint32_t bitrate, uint16_t rotation, uint16_t hfov)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -102,13 +103,14 @@ static inline uint16_t mavlink_msg_video_stream_status_pack(uint8_t system_id, u
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_VIDEO_STREAM_STATUS;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_MIN_LEN, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_LEN, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_MIN_LEN, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_LEN, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_CRC);
 }
 
 /**
  * @brief Pack a video_stream_status message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param stream_id  Video Stream ID (1 for first, 2 for second, etc.)
@@ -121,7 +123,7 @@ static inline uint16_t mavlink_msg_video_stream_status_pack(uint8_t system_id, u
  * @param hfov [deg] Horizontal Field of view
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_video_stream_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_video_stream_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t stream_id,uint16_t flags,float framerate,uint16_t resolution_h,uint16_t resolution_v,uint32_t bitrate,uint16_t rotation,uint16_t hfov)
 {
@@ -152,7 +154,7 @@ static inline uint16_t mavlink_msg_video_stream_status_pack_chan(uint8_t system_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_VIDEO_STREAM_STATUS;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_MIN_LEN, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_LEN, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_MIN_LEN, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_LEN, MAVLINK_MSG_ID_VIDEO_STREAM_STATUS_CRC);
 }
 
 /**
@@ -160,12 +162,13 @@ static inline uint16_t mavlink_msg_video_stream_status_pack_chan(uint8_t system_
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param video_stream_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_video_stream_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_video_stream_status_t* video_stream_status)
+static inline uint16_t mavlink_msg_video_stream_status_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_video_stream_status_t* video_stream_status)
 {
-    return mavlink_msg_video_stream_status_pack(system_id, component_id, msg, video_stream_status->stream_id, video_stream_status->flags, video_stream_status->framerate, video_stream_status->resolution_h, video_stream_status->resolution_v, video_stream_status->bitrate, video_stream_status->rotation, video_stream_status->hfov);
+    return mavlink_msg_video_stream_status_pack(system_id, component_id, group_id, msg, video_stream_status->stream_id, video_stream_status->flags, video_stream_status->framerate, video_stream_status->resolution_h, video_stream_status->resolution_v, video_stream_status->bitrate, video_stream_status->rotation, video_stream_status->hfov);
 }
 
 /**
@@ -173,13 +176,14 @@ static inline uint16_t mavlink_msg_video_stream_status_encode(uint8_t system_id,
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param video_stream_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_video_stream_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_video_stream_status_t* video_stream_status)
+static inline uint16_t mavlink_msg_video_stream_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_video_stream_status_t* video_stream_status)
 {
-    return mavlink_msg_video_stream_status_pack_chan(system_id, component_id, chan, msg, video_stream_status->stream_id, video_stream_status->flags, video_stream_status->framerate, video_stream_status->resolution_h, video_stream_status->resolution_v, video_stream_status->bitrate, video_stream_status->rotation, video_stream_status->hfov);
+    return mavlink_msg_video_stream_status_pack_chan(system_id, component_id, group_id, chan, msg, video_stream_status->stream_id, video_stream_status->flags, video_stream_status->framerate, video_stream_status->resolution_h, video_stream_status->resolution_v, video_stream_status->bitrate, video_stream_status->rotation, video_stream_status->hfov);
 }
 
 /**

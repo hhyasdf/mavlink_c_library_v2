@@ -57,6 +57,7 @@ typedef struct __mavlink_ekf_status_report_t {
  * @brief Pack a ekf_status_report message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param flags  Flags.
@@ -68,7 +69,7 @@ typedef struct __mavlink_ekf_status_report_t {
  * @param airspeed_variance  Airspeed variance.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_ekf_status_report_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_ekf_status_report_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint16_t flags, float velocity_variance, float pos_horiz_variance, float pos_vert_variance, float compass_variance, float terrain_alt_variance, float airspeed_variance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -96,13 +97,14 @@ static inline uint16_t mavlink_msg_ekf_status_report_pack(uint8_t system_id, uin
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_EKF_STATUS_REPORT;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_EKF_STATUS_REPORT_MIN_LEN, MAVLINK_MSG_ID_EKF_STATUS_REPORT_LEN, MAVLINK_MSG_ID_EKF_STATUS_REPORT_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_EKF_STATUS_REPORT_MIN_LEN, MAVLINK_MSG_ID_EKF_STATUS_REPORT_LEN, MAVLINK_MSG_ID_EKF_STATUS_REPORT_CRC);
 }
 
 /**
  * @brief Pack a ekf_status_report message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param flags  Flags.
@@ -114,7 +116,7 @@ static inline uint16_t mavlink_msg_ekf_status_report_pack(uint8_t system_id, uin
  * @param airspeed_variance  Airspeed variance.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_ekf_status_report_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_ekf_status_report_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint16_t flags,float velocity_variance,float pos_horiz_variance,float pos_vert_variance,float compass_variance,float terrain_alt_variance,float airspeed_variance)
 {
@@ -143,7 +145,7 @@ static inline uint16_t mavlink_msg_ekf_status_report_pack_chan(uint8_t system_id
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_EKF_STATUS_REPORT;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_EKF_STATUS_REPORT_MIN_LEN, MAVLINK_MSG_ID_EKF_STATUS_REPORT_LEN, MAVLINK_MSG_ID_EKF_STATUS_REPORT_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_EKF_STATUS_REPORT_MIN_LEN, MAVLINK_MSG_ID_EKF_STATUS_REPORT_LEN, MAVLINK_MSG_ID_EKF_STATUS_REPORT_CRC);
 }
 
 /**
@@ -151,12 +153,13 @@ static inline uint16_t mavlink_msg_ekf_status_report_pack_chan(uint8_t system_id
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param ekf_status_report C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_ekf_status_report_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_ekf_status_report_t* ekf_status_report)
+static inline uint16_t mavlink_msg_ekf_status_report_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_ekf_status_report_t* ekf_status_report)
 {
-    return mavlink_msg_ekf_status_report_pack(system_id, component_id, msg, ekf_status_report->flags, ekf_status_report->velocity_variance, ekf_status_report->pos_horiz_variance, ekf_status_report->pos_vert_variance, ekf_status_report->compass_variance, ekf_status_report->terrain_alt_variance, ekf_status_report->airspeed_variance);
+    return mavlink_msg_ekf_status_report_pack(system_id, component_id, group_id, msg, ekf_status_report->flags, ekf_status_report->velocity_variance, ekf_status_report->pos_horiz_variance, ekf_status_report->pos_vert_variance, ekf_status_report->compass_variance, ekf_status_report->terrain_alt_variance, ekf_status_report->airspeed_variance);
 }
 
 /**
@@ -164,13 +167,14 @@ static inline uint16_t mavlink_msg_ekf_status_report_encode(uint8_t system_id, u
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param ekf_status_report C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_ekf_status_report_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ekf_status_report_t* ekf_status_report)
+static inline uint16_t mavlink_msg_ekf_status_report_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ekf_status_report_t* ekf_status_report)
 {
-    return mavlink_msg_ekf_status_report_pack_chan(system_id, component_id, chan, msg, ekf_status_report->flags, ekf_status_report->velocity_variance, ekf_status_report->pos_horiz_variance, ekf_status_report->pos_vert_variance, ekf_status_report->compass_variance, ekf_status_report->terrain_alt_variance, ekf_status_report->airspeed_variance);
+    return mavlink_msg_ekf_status_report_pack_chan(system_id, component_id, group_id, chan, msg, ekf_status_report->flags, ekf_status_report->velocity_variance, ekf_status_report->pos_horiz_variance, ekf_status_report->pos_vert_variance, ekf_status_report->compass_variance, ekf_status_report->terrain_alt_variance, ekf_status_report->airspeed_variance);
 }
 
 /**

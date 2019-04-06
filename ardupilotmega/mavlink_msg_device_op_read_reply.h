@@ -51,6 +51,7 @@ typedef struct __mavlink_device_op_read_reply_t {
  * @brief Pack a device_op_read_reply message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param request_id  Request ID - copied from request.
@@ -60,7 +61,7 @@ typedef struct __mavlink_device_op_read_reply_t {
  * @param data  Reply data.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_device_op_read_reply_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_device_op_read_reply_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint32_t request_id, uint8_t result, uint8_t regstart, uint8_t count, const uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -82,13 +83,14 @@ static inline uint16_t mavlink_msg_device_op_read_reply_pack(uint8_t system_id, 
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_MIN_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_MIN_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_CRC);
 }
 
 /**
  * @brief Pack a device_op_read_reply message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param request_id  Request ID - copied from request.
@@ -98,7 +100,7 @@ static inline uint16_t mavlink_msg_device_op_read_reply_pack(uint8_t system_id, 
  * @param data  Reply data.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_device_op_read_reply_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_device_op_read_reply_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t request_id,uint8_t result,uint8_t regstart,uint8_t count,const uint8_t *data)
 {
@@ -121,7 +123,7 @@ static inline uint16_t mavlink_msg_device_op_read_reply_pack_chan(uint8_t system
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_MIN_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_MIN_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_REPLY_CRC);
 }
 
 /**
@@ -129,12 +131,13 @@ static inline uint16_t mavlink_msg_device_op_read_reply_pack_chan(uint8_t system
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param device_op_read_reply C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_device_op_read_reply_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_device_op_read_reply_t* device_op_read_reply)
+static inline uint16_t mavlink_msg_device_op_read_reply_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_device_op_read_reply_t* device_op_read_reply)
 {
-    return mavlink_msg_device_op_read_reply_pack(system_id, component_id, msg, device_op_read_reply->request_id, device_op_read_reply->result, device_op_read_reply->regstart, device_op_read_reply->count, device_op_read_reply->data);
+    return mavlink_msg_device_op_read_reply_pack(system_id, component_id, group_id, msg, device_op_read_reply->request_id, device_op_read_reply->result, device_op_read_reply->regstart, device_op_read_reply->count, device_op_read_reply->data);
 }
 
 /**
@@ -142,13 +145,14 @@ static inline uint16_t mavlink_msg_device_op_read_reply_encode(uint8_t system_id
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param device_op_read_reply C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_device_op_read_reply_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_device_op_read_reply_t* device_op_read_reply)
+static inline uint16_t mavlink_msg_device_op_read_reply_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_device_op_read_reply_t* device_op_read_reply)
 {
-    return mavlink_msg_device_op_read_reply_pack_chan(system_id, component_id, chan, msg, device_op_read_reply->request_id, device_op_read_reply->result, device_op_read_reply->regstart, device_op_read_reply->count, device_op_read_reply->data);
+    return mavlink_msg_device_op_read_reply_pack_chan(system_id, component_id, group_id, chan, msg, device_op_read_reply->request_id, device_op_read_reply->result, device_op_read_reply->regstart, device_op_read_reply->count, device_op_read_reply->data);
 }
 
 /**

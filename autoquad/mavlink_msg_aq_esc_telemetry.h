@@ -67,6 +67,7 @@ typedef struct __mavlink_aq_esc_telemetry_t {
  * @brief Pack a aq_esc_telemetry message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param time_boot_ms  Timestamp of the component clock since boot time in ms.
@@ -80,7 +81,7 @@ typedef struct __mavlink_aq_esc_telemetry_t {
  * @param data1  Data bits 33-64 for each ESC.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_aq_esc_telemetry_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_aq_esc_telemetry_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint32_t time_boot_ms, uint8_t seq, uint8_t num_motors, uint8_t num_in_seq, const uint8_t *escid, const uint16_t *status_age, const uint8_t *data_version, const uint32_t *data0, const uint32_t *data1)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -110,13 +111,14 @@ static inline uint16_t mavlink_msg_aq_esc_telemetry_pack(uint8_t system_id, uint
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_AQ_ESC_TELEMETRY;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_MIN_LEN, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_LEN, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_MIN_LEN, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_LEN, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_CRC);
 }
 
 /**
  * @brief Pack a aq_esc_telemetry message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param time_boot_ms  Timestamp of the component clock since boot time in ms.
@@ -130,7 +132,7 @@ static inline uint16_t mavlink_msg_aq_esc_telemetry_pack(uint8_t system_id, uint
  * @param data1  Data bits 33-64 for each ESC.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_aq_esc_telemetry_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_aq_esc_telemetry_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t time_boot_ms,uint8_t seq,uint8_t num_motors,uint8_t num_in_seq,const uint8_t *escid,const uint16_t *status_age,const uint8_t *data_version,const uint32_t *data0,const uint32_t *data1)
 {
@@ -161,7 +163,7 @@ static inline uint16_t mavlink_msg_aq_esc_telemetry_pack_chan(uint8_t system_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_AQ_ESC_TELEMETRY;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_MIN_LEN, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_LEN, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_MIN_LEN, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_LEN, MAVLINK_MSG_ID_AQ_ESC_TELEMETRY_CRC);
 }
 
 /**
@@ -169,12 +171,13 @@ static inline uint16_t mavlink_msg_aq_esc_telemetry_pack_chan(uint8_t system_id,
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param aq_esc_telemetry C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_aq_esc_telemetry_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_aq_esc_telemetry_t* aq_esc_telemetry)
+static inline uint16_t mavlink_msg_aq_esc_telemetry_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_aq_esc_telemetry_t* aq_esc_telemetry)
 {
-    return mavlink_msg_aq_esc_telemetry_pack(system_id, component_id, msg, aq_esc_telemetry->time_boot_ms, aq_esc_telemetry->seq, aq_esc_telemetry->num_motors, aq_esc_telemetry->num_in_seq, aq_esc_telemetry->escid, aq_esc_telemetry->status_age, aq_esc_telemetry->data_version, aq_esc_telemetry->data0, aq_esc_telemetry->data1);
+    return mavlink_msg_aq_esc_telemetry_pack(system_id, component_id, group_id, msg, aq_esc_telemetry->time_boot_ms, aq_esc_telemetry->seq, aq_esc_telemetry->num_motors, aq_esc_telemetry->num_in_seq, aq_esc_telemetry->escid, aq_esc_telemetry->status_age, aq_esc_telemetry->data_version, aq_esc_telemetry->data0, aq_esc_telemetry->data1);
 }
 
 /**
@@ -182,13 +185,14 @@ static inline uint16_t mavlink_msg_aq_esc_telemetry_encode(uint8_t system_id, ui
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param aq_esc_telemetry C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_aq_esc_telemetry_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_aq_esc_telemetry_t* aq_esc_telemetry)
+static inline uint16_t mavlink_msg_aq_esc_telemetry_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_aq_esc_telemetry_t* aq_esc_telemetry)
 {
-    return mavlink_msg_aq_esc_telemetry_pack_chan(system_id, component_id, chan, msg, aq_esc_telemetry->time_boot_ms, aq_esc_telemetry->seq, aq_esc_telemetry->num_motors, aq_esc_telemetry->num_in_seq, aq_esc_telemetry->escid, aq_esc_telemetry->status_age, aq_esc_telemetry->data_version, aq_esc_telemetry->data0, aq_esc_telemetry->data1);
+    return mavlink_msg_aq_esc_telemetry_pack_chan(system_id, component_id, group_id, chan, msg, aq_esc_telemetry->time_boot_ms, aq_esc_telemetry->seq, aq_esc_telemetry->num_motors, aq_esc_telemetry->num_in_seq, aq_esc_telemetry->escid, aq_esc_telemetry->status_age, aq_esc_telemetry->data_version, aq_esc_telemetry->data0, aq_esc_telemetry->data1);
 }
 
 /**

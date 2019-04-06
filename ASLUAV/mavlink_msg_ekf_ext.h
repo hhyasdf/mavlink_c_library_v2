@@ -57,6 +57,7 @@ typedef struct __mavlink_ekf_ext_t {
  * @brief Pack a ekf_ext message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param timestamp [us]  Time since system start
@@ -68,7 +69,7 @@ typedef struct __mavlink_ekf_ext_t {
  * @param alpha [rad]  Angle of attack
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_ekf_ext_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_ekf_ext_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint64_t timestamp, float Windspeed, float WindDir, float WindZ, float Airspeed, float beta, float alpha)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -96,13 +97,14 @@ static inline uint16_t mavlink_msg_ekf_ext_pack(uint8_t system_id, uint8_t compo
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_EKF_EXT;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_EKF_EXT_MIN_LEN, MAVLINK_MSG_ID_EKF_EXT_LEN, MAVLINK_MSG_ID_EKF_EXT_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_EKF_EXT_MIN_LEN, MAVLINK_MSG_ID_EKF_EXT_LEN, MAVLINK_MSG_ID_EKF_EXT_CRC);
 }
 
 /**
  * @brief Pack a ekf_ext message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param timestamp [us]  Time since system start
@@ -114,7 +116,7 @@ static inline uint16_t mavlink_msg_ekf_ext_pack(uint8_t system_id, uint8_t compo
  * @param alpha [rad]  Angle of attack
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_ekf_ext_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_ekf_ext_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t timestamp,float Windspeed,float WindDir,float WindZ,float Airspeed,float beta,float alpha)
 {
@@ -143,7 +145,7 @@ static inline uint16_t mavlink_msg_ekf_ext_pack_chan(uint8_t system_id, uint8_t 
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_EKF_EXT;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_EKF_EXT_MIN_LEN, MAVLINK_MSG_ID_EKF_EXT_LEN, MAVLINK_MSG_ID_EKF_EXT_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_EKF_EXT_MIN_LEN, MAVLINK_MSG_ID_EKF_EXT_LEN, MAVLINK_MSG_ID_EKF_EXT_CRC);
 }
 
 /**
@@ -151,12 +153,13 @@ static inline uint16_t mavlink_msg_ekf_ext_pack_chan(uint8_t system_id, uint8_t 
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param ekf_ext C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_ekf_ext_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_ekf_ext_t* ekf_ext)
+static inline uint16_t mavlink_msg_ekf_ext_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_ekf_ext_t* ekf_ext)
 {
-    return mavlink_msg_ekf_ext_pack(system_id, component_id, msg, ekf_ext->timestamp, ekf_ext->Windspeed, ekf_ext->WindDir, ekf_ext->WindZ, ekf_ext->Airspeed, ekf_ext->beta, ekf_ext->alpha);
+    return mavlink_msg_ekf_ext_pack(system_id, component_id, group_id, msg, ekf_ext->timestamp, ekf_ext->Windspeed, ekf_ext->WindDir, ekf_ext->WindZ, ekf_ext->Airspeed, ekf_ext->beta, ekf_ext->alpha);
 }
 
 /**
@@ -164,13 +167,14 @@ static inline uint16_t mavlink_msg_ekf_ext_encode(uint8_t system_id, uint8_t com
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param ekf_ext C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_ekf_ext_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ekf_ext_t* ekf_ext)
+static inline uint16_t mavlink_msg_ekf_ext_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_ekf_ext_t* ekf_ext)
 {
-    return mavlink_msg_ekf_ext_pack_chan(system_id, component_id, chan, msg, ekf_ext->timestamp, ekf_ext->Windspeed, ekf_ext->WindDir, ekf_ext->WindZ, ekf_ext->Airspeed, ekf_ext->beta, ekf_ext->alpha);
+    return mavlink_msg_ekf_ext_pack_chan(system_id, component_id, group_id, chan, msg, ekf_ext->timestamp, ekf_ext->Windspeed, ekf_ext->WindDir, ekf_ext->WindZ, ekf_ext->Airspeed, ekf_ext->beta, ekf_ext->alpha);
 }
 
 /**

@@ -66,6 +66,7 @@ typedef struct __mavlink_slugs_navigation_t {
  * @brief Pack a slugs_navigation message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param u_m [m/s] Measured Airspeed prior to the nav filter
@@ -80,7 +81,7 @@ typedef struct __mavlink_slugs_navigation_t {
  * @param h_c [dm] Commanded altitude (MSL)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_slugs_navigation_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_slugs_navigation_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                float u_m, float phi_c, float theta_c, float psiDot_c, float ay_body, float totalDist, float dist2Go, uint8_t fromWP, uint8_t toWP, uint16_t h_c)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -114,13 +115,14 @@ static inline uint16_t mavlink_msg_slugs_navigation_pack(uint8_t system_id, uint
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SLUGS_NAVIGATION;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SLUGS_NAVIGATION_MIN_LEN, MAVLINK_MSG_ID_SLUGS_NAVIGATION_LEN, MAVLINK_MSG_ID_SLUGS_NAVIGATION_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_SLUGS_NAVIGATION_MIN_LEN, MAVLINK_MSG_ID_SLUGS_NAVIGATION_LEN, MAVLINK_MSG_ID_SLUGS_NAVIGATION_CRC);
 }
 
 /**
  * @brief Pack a slugs_navigation message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param u_m [m/s] Measured Airspeed prior to the nav filter
@@ -135,7 +137,7 @@ static inline uint16_t mavlink_msg_slugs_navigation_pack(uint8_t system_id, uint
  * @param h_c [dm] Commanded altitude (MSL)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_slugs_navigation_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_slugs_navigation_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    float u_m,float phi_c,float theta_c,float psiDot_c,float ay_body,float totalDist,float dist2Go,uint8_t fromWP,uint8_t toWP,uint16_t h_c)
 {
@@ -170,7 +172,7 @@ static inline uint16_t mavlink_msg_slugs_navigation_pack_chan(uint8_t system_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SLUGS_NAVIGATION;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SLUGS_NAVIGATION_MIN_LEN, MAVLINK_MSG_ID_SLUGS_NAVIGATION_LEN, MAVLINK_MSG_ID_SLUGS_NAVIGATION_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_SLUGS_NAVIGATION_MIN_LEN, MAVLINK_MSG_ID_SLUGS_NAVIGATION_LEN, MAVLINK_MSG_ID_SLUGS_NAVIGATION_CRC);
 }
 
 /**
@@ -178,12 +180,13 @@ static inline uint16_t mavlink_msg_slugs_navigation_pack_chan(uint8_t system_id,
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param slugs_navigation C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_slugs_navigation_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_slugs_navigation_t* slugs_navigation)
+static inline uint16_t mavlink_msg_slugs_navigation_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_slugs_navigation_t* slugs_navigation)
 {
-    return mavlink_msg_slugs_navigation_pack(system_id, component_id, msg, slugs_navigation->u_m, slugs_navigation->phi_c, slugs_navigation->theta_c, slugs_navigation->psiDot_c, slugs_navigation->ay_body, slugs_navigation->totalDist, slugs_navigation->dist2Go, slugs_navigation->fromWP, slugs_navigation->toWP, slugs_navigation->h_c);
+    return mavlink_msg_slugs_navigation_pack(system_id, component_id, group_id, msg, slugs_navigation->u_m, slugs_navigation->phi_c, slugs_navigation->theta_c, slugs_navigation->psiDot_c, slugs_navigation->ay_body, slugs_navigation->totalDist, slugs_navigation->dist2Go, slugs_navigation->fromWP, slugs_navigation->toWP, slugs_navigation->h_c);
 }
 
 /**
@@ -191,13 +194,14 @@ static inline uint16_t mavlink_msg_slugs_navigation_encode(uint8_t system_id, ui
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param slugs_navigation C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_slugs_navigation_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_slugs_navigation_t* slugs_navigation)
+static inline uint16_t mavlink_msg_slugs_navigation_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_slugs_navigation_t* slugs_navigation)
 {
-    return mavlink_msg_slugs_navigation_pack_chan(system_id, component_id, chan, msg, slugs_navigation->u_m, slugs_navigation->phi_c, slugs_navigation->theta_c, slugs_navigation->psiDot_c, slugs_navigation->ay_body, slugs_navigation->totalDist, slugs_navigation->dist2Go, slugs_navigation->fromWP, slugs_navigation->toWP, slugs_navigation->h_c);
+    return mavlink_msg_slugs_navigation_pack_chan(system_id, component_id, group_id, chan, msg, slugs_navigation->u_m, slugs_navigation->phi_c, slugs_navigation->theta_c, slugs_navigation->psiDot_c, slugs_navigation->ay_body, slugs_navigation->totalDist, slugs_navigation->dist2Go, slugs_navigation->fromWP, slugs_navigation->toWP, slugs_navigation->h_c);
 }
 
 /**

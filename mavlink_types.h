@@ -24,8 +24,8 @@ namespace mavlink {
 #define MAVLINK_MAX_PAYLOAD_LEN 255 ///< Maximum payload length
 #endif
 
-#define MAVLINK_CORE_HEADER_LEN 9 ///< Length of core header (of the comm. layer)
-#define MAVLINK_CORE_HEADER_MAVLINK1_LEN 5 ///< Length of MAVLink1 core header (of the comm. layer)
+#define MAVLINK_CORE_HEADER_LEN 10 ///< Length of core header (of the comm. layer)
+#define MAVLINK_CORE_HEADER_MAVLINK1_LEN 6 ///< Length of MAVLink1 core header (of the comm. layer)
 #define MAVLINK_NUM_HEADER_BYTES (MAVLINK_CORE_HEADER_LEN + 1) ///< Length of all header bytes, including core and stx
 #define MAVLINK_NUM_CHECKSUM_BYTES 2
 #define MAVLINK_NUM_NON_PAYLOAD_BYTES (MAVLINK_NUM_HEADER_BYTES + MAVLINK_NUM_CHECKSUM_BYTES)
@@ -102,6 +102,7 @@ MAVPACKED(
 typedef struct __mavlink_system {
     uint8_t sysid;   ///< Used by the MAVLink message_xx_send() convenience function
     uint8_t compid;  ///< Used by the MAVLink message_xx_send() convenience function
+    uint8_t groupid; ///< Used by the MAVLink message_xx_send() convenience function
 }) mavlink_system_t;
 
 MAVPACKED(
@@ -114,6 +115,7 @@ typedef struct __mavlink_message {
 	uint8_t seq;            ///< Sequence of packet
 	uint8_t sysid;          ///< ID of message sender system/aircraft
 	uint8_t compid;         ///< ID of the message sender component
+    uint8_t groupid;        ///< ID of the group which the message sender belong to
 	uint32_t msgid:24;      ///< ID of message in payload
 	uint64_t payload64[(MAVLINK_MAX_PAYLOAD_LEN+MAVLINK_NUM_CHECKSUM_BYTES+7)/8];
 	uint8_t ck[2];          ///< incoming checksum bytes
@@ -191,6 +193,7 @@ typedef enum {
     MAVLINK_PARSE_STATE_GOT_SEQ,
     MAVLINK_PARSE_STATE_GOT_SYSID,
     MAVLINK_PARSE_STATE_GOT_COMPID,
+    MAVLINK_PARSE_STATE_GOT_GROUPID,
     MAVLINK_PARSE_STATE_GOT_MSGID1,
     MAVLINK_PARSE_STATE_GOT_MSGID2,
     MAVLINK_PARSE_STATE_GOT_MSGID3,

@@ -42,13 +42,14 @@ typedef struct __mavlink_autopilot_version_request_t {
  * @brief Pack a autopilot_version_request message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param target_system  System ID.
  * @param target_component  Component ID.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_autopilot_version_request_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_autopilot_version_request_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t target_system, uint8_t target_component)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -66,20 +67,21 @@ static inline uint16_t mavlink_msg_autopilot_version_request_pack(uint8_t system
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_MIN_LEN, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_LEN, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_MIN_LEN, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_LEN, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_CRC);
 }
 
 /**
  * @brief Pack a autopilot_version_request message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param target_system  System ID.
  * @param target_component  Component ID.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_autopilot_version_request_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_autopilot_version_request_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t target_system,uint8_t target_component)
 {
@@ -98,7 +100,7 @@ static inline uint16_t mavlink_msg_autopilot_version_request_pack_chan(uint8_t s
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_MIN_LEN, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_LEN, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_MIN_LEN, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_LEN, MAVLINK_MSG_ID_AUTOPILOT_VERSION_REQUEST_CRC);
 }
 
 /**
@@ -106,12 +108,13 @@ static inline uint16_t mavlink_msg_autopilot_version_request_pack_chan(uint8_t s
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param autopilot_version_request C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_autopilot_version_request_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_autopilot_version_request_t* autopilot_version_request)
+static inline uint16_t mavlink_msg_autopilot_version_request_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_autopilot_version_request_t* autopilot_version_request)
 {
-    return mavlink_msg_autopilot_version_request_pack(system_id, component_id, msg, autopilot_version_request->target_system, autopilot_version_request->target_component);
+    return mavlink_msg_autopilot_version_request_pack(system_id, component_id, group_id, msg, autopilot_version_request->target_system, autopilot_version_request->target_component);
 }
 
 /**
@@ -119,13 +122,14 @@ static inline uint16_t mavlink_msg_autopilot_version_request_encode(uint8_t syst
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param autopilot_version_request C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_autopilot_version_request_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_autopilot_version_request_t* autopilot_version_request)
+static inline uint16_t mavlink_msg_autopilot_version_request_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_autopilot_version_request_t* autopilot_version_request)
 {
-    return mavlink_msg_autopilot_version_request_pack_chan(system_id, component_id, chan, msg, autopilot_version_request->target_system, autopilot_version_request->target_component);
+    return mavlink_msg_autopilot_version_request_pack_chan(system_id, component_id, group_id, chan, msg, autopilot_version_request->target_system, autopilot_version_request->target_component);
 }
 
 /**

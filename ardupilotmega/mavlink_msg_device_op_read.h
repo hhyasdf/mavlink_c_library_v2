@@ -63,6 +63,7 @@ typedef struct __mavlink_device_op_read_t {
  * @brief Pack a device_op_read message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param target_system  System ID.
@@ -76,7 +77,7 @@ typedef struct __mavlink_device_op_read_t {
  * @param count  Count of registers to read.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_device_op_read_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_device_op_read_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t target_system, uint8_t target_component, uint32_t request_id, uint8_t bustype, uint8_t bus, uint8_t address, const char *busname, uint8_t regstart, uint8_t count)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -106,13 +107,14 @@ static inline uint16_t mavlink_msg_device_op_read_pack(uint8_t system_id, uint8_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_DEVICE_OP_READ;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_DEVICE_OP_READ_MIN_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_DEVICE_OP_READ_MIN_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_CRC);
 }
 
 /**
  * @brief Pack a device_op_read message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param target_system  System ID.
@@ -126,7 +128,7 @@ static inline uint16_t mavlink_msg_device_op_read_pack(uint8_t system_id, uint8_
  * @param count  Count of registers to read.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_device_op_read_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_device_op_read_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t target_system,uint8_t target_component,uint32_t request_id,uint8_t bustype,uint8_t bus,uint8_t address,const char *busname,uint8_t regstart,uint8_t count)
 {
@@ -157,7 +159,7 @@ static inline uint16_t mavlink_msg_device_op_read_pack_chan(uint8_t system_id, u
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_DEVICE_OP_READ;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_DEVICE_OP_READ_MIN_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_DEVICE_OP_READ_MIN_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_LEN, MAVLINK_MSG_ID_DEVICE_OP_READ_CRC);
 }
 
 /**
@@ -165,12 +167,13 @@ static inline uint16_t mavlink_msg_device_op_read_pack_chan(uint8_t system_id, u
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param device_op_read C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_device_op_read_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_device_op_read_t* device_op_read)
+static inline uint16_t mavlink_msg_device_op_read_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_device_op_read_t* device_op_read)
 {
-    return mavlink_msg_device_op_read_pack(system_id, component_id, msg, device_op_read->target_system, device_op_read->target_component, device_op_read->request_id, device_op_read->bustype, device_op_read->bus, device_op_read->address, device_op_read->busname, device_op_read->regstart, device_op_read->count);
+    return mavlink_msg_device_op_read_pack(system_id, component_id, group_id, msg, device_op_read->target_system, device_op_read->target_component, device_op_read->request_id, device_op_read->bustype, device_op_read->bus, device_op_read->address, device_op_read->busname, device_op_read->regstart, device_op_read->count);
 }
 
 /**
@@ -178,13 +181,14 @@ static inline uint16_t mavlink_msg_device_op_read_encode(uint8_t system_id, uint
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param device_op_read C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_device_op_read_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_device_op_read_t* device_op_read)
+static inline uint16_t mavlink_msg_device_op_read_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_device_op_read_t* device_op_read)
 {
-    return mavlink_msg_device_op_read_pack_chan(system_id, component_id, chan, msg, device_op_read->target_system, device_op_read->target_component, device_op_read->request_id, device_op_read->bustype, device_op_read->bus, device_op_read->address, device_op_read->busname, device_op_read->regstart, device_op_read->count);
+    return mavlink_msg_device_op_read_pack_chan(system_id, component_id, group_id, chan, msg, device_op_read->target_system, device_op_read->target_component, device_op_read->request_id, device_op_read->bustype, device_op_read->bus, device_op_read->address, device_op_read->busname, device_op_read->regstart, device_op_read->count);
 }
 
 /**

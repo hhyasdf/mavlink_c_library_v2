@@ -45,6 +45,7 @@ typedef struct __mavlink_slugs_mobile_location_t {
  * @brief Pack a slugs_mobile_location message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param target  The system reporting the action
@@ -52,7 +53,7 @@ typedef struct __mavlink_slugs_mobile_location_t {
  * @param longitude [deg] Mobile Longitude
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_slugs_mobile_location_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_slugs_mobile_location_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t target, float latitude, float longitude)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -72,13 +73,14 @@ static inline uint16_t mavlink_msg_slugs_mobile_location_pack(uint8_t system_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_MIN_LEN, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_LEN, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_MIN_LEN, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_LEN, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_CRC);
 }
 
 /**
  * @brief Pack a slugs_mobile_location message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param target  The system reporting the action
@@ -86,7 +88,7 @@ static inline uint16_t mavlink_msg_slugs_mobile_location_pack(uint8_t system_id,
  * @param longitude [deg] Mobile Longitude
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_slugs_mobile_location_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_slugs_mobile_location_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t target,float latitude,float longitude)
 {
@@ -107,7 +109,7 @@ static inline uint16_t mavlink_msg_slugs_mobile_location_pack_chan(uint8_t syste
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_MIN_LEN, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_LEN, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_MIN_LEN, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_LEN, MAVLINK_MSG_ID_SLUGS_MOBILE_LOCATION_CRC);
 }
 
 /**
@@ -115,12 +117,13 @@ static inline uint16_t mavlink_msg_slugs_mobile_location_pack_chan(uint8_t syste
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param slugs_mobile_location C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_slugs_mobile_location_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_slugs_mobile_location_t* slugs_mobile_location)
+static inline uint16_t mavlink_msg_slugs_mobile_location_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_slugs_mobile_location_t* slugs_mobile_location)
 {
-    return mavlink_msg_slugs_mobile_location_pack(system_id, component_id, msg, slugs_mobile_location->target, slugs_mobile_location->latitude, slugs_mobile_location->longitude);
+    return mavlink_msg_slugs_mobile_location_pack(system_id, component_id, group_id, msg, slugs_mobile_location->target, slugs_mobile_location->latitude, slugs_mobile_location->longitude);
 }
 
 /**
@@ -128,13 +131,14 @@ static inline uint16_t mavlink_msg_slugs_mobile_location_encode(uint8_t system_i
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param slugs_mobile_location C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_slugs_mobile_location_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_slugs_mobile_location_t* slugs_mobile_location)
+static inline uint16_t mavlink_msg_slugs_mobile_location_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_slugs_mobile_location_t* slugs_mobile_location)
 {
-    return mavlink_msg_slugs_mobile_location_pack_chan(system_id, component_id, chan, msg, slugs_mobile_location->target, slugs_mobile_location->latitude, slugs_mobile_location->longitude);
+    return mavlink_msg_slugs_mobile_location_pack_chan(system_id, component_id, group_id, chan, msg, slugs_mobile_location->target, slugs_mobile_location->latitude, slugs_mobile_location->longitude);
 }
 
 /**

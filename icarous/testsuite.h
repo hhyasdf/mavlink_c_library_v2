@@ -15,17 +15,17 @@ extern "C" {
 
 static void mavlink_test_icarous(uint8_t, uint8_t, mavlink_message_t *last_msg);
 
-static void mavlink_test_all(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+static void mavlink_test_all(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t *last_msg)
 {
 
-    mavlink_test_icarous(system_id, component_id, last_msg);
+    mavlink_test_icarous(system_id, component_id, group_id, last_msg);
 }
 #endif
 
 
 
 
-static void mavlink_test_icarous_heartbeat(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+static void mavlink_test_icarous_heartbeat(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t *last_msg)
 {
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
     mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
@@ -51,17 +51,17 @@ static void mavlink_test_icarous_heartbeat(uint8_t system_id, uint8_t component_
         }
 #endif
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_icarous_heartbeat_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_icarous_heartbeat_encode(system_id, component_id, group_id, &msg, &packet1);
     mavlink_msg_icarous_heartbeat_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_icarous_heartbeat_pack(system_id, component_id, &msg , packet1.status );
+    mavlink_msg_icarous_heartbeat_pack(system_id, component_id, group_id, &msg , packet1.status );
     mavlink_msg_icarous_heartbeat_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_icarous_heartbeat_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.status );
+    mavlink_msg_icarous_heartbeat_pack_chan(system_id, component_id, group_id, MAVLINK_COMM_0, &msg , packet1.status );
     mavlink_msg_icarous_heartbeat_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -79,7 +79,7 @@ static void mavlink_test_icarous_heartbeat(uint8_t system_id, uint8_t component_
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
-static void mavlink_test_icarous_kinematic_bands(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+static void mavlink_test_icarous_kinematic_bands(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t *last_msg)
 {
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
     mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
@@ -120,17 +120,17 @@ static void mavlink_test_icarous_kinematic_bands(uint8_t system_id, uint8_t comp
         }
 #endif
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_icarous_kinematic_bands_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_icarous_kinematic_bands_encode(system_id, component_id, group_id, &msg, &packet1);
     mavlink_msg_icarous_kinematic_bands_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_icarous_kinematic_bands_pack(system_id, component_id, &msg , packet1.numBands , packet1.type1 , packet1.min1 , packet1.max1 , packet1.type2 , packet1.min2 , packet1.max2 , packet1.type3 , packet1.min3 , packet1.max3 , packet1.type4 , packet1.min4 , packet1.max4 , packet1.type5 , packet1.min5 , packet1.max5 );
+    mavlink_msg_icarous_kinematic_bands_pack(system_id, component_id, group_id, &msg , packet1.numBands , packet1.type1 , packet1.min1 , packet1.max1 , packet1.type2 , packet1.min2 , packet1.max2 , packet1.type3 , packet1.min3 , packet1.max3 , packet1.type4 , packet1.min4 , packet1.max4 , packet1.type5 , packet1.min5 , packet1.max5 );
     mavlink_msg_icarous_kinematic_bands_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_icarous_kinematic_bands_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.numBands , packet1.type1 , packet1.min1 , packet1.max1 , packet1.type2 , packet1.min2 , packet1.max2 , packet1.type3 , packet1.min3 , packet1.max3 , packet1.type4 , packet1.min4 , packet1.max4 , packet1.type5 , packet1.min5 , packet1.max5 );
+    mavlink_msg_icarous_kinematic_bands_pack_chan(system_id, component_id, group_id, MAVLINK_COMM_0, &msg , packet1.numBands , packet1.type1 , packet1.min1 , packet1.max1 , packet1.type2 , packet1.min2 , packet1.max2 , packet1.type3 , packet1.min3 , packet1.max3 , packet1.type4 , packet1.min4 , packet1.max4 , packet1.type5 , packet1.min5 , packet1.max5 );
     mavlink_msg_icarous_kinematic_bands_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -148,10 +148,10 @@ static void mavlink_test_icarous_kinematic_bands(uint8_t system_id, uint8_t comp
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
-static void mavlink_test_icarous(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+static void mavlink_test_icarous(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t *last_msg)
 {
-    mavlink_test_icarous_heartbeat(system_id, component_id, last_msg);
-    mavlink_test_icarous_kinematic_bands(system_id, component_id, last_msg);
+    mavlink_test_icarous_heartbeat(system_id, component_id, group_id, last_msg);
+    mavlink_test_icarous_kinematic_bands(system_id, component_id, group_id, last_msg);
 }
 
 #ifdef __cplusplus

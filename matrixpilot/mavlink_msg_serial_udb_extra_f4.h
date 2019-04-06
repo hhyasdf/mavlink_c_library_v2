@@ -66,6 +66,7 @@ typedef struct __mavlink_serial_udb_extra_f4_t {
  * @brief Pack a serial_udb_extra_f4 message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param sue_ROLL_STABILIZATION_AILERONS  Serial UDB Extra Roll Stabilization with Ailerons Enabled
@@ -80,7 +81,7 @@ typedef struct __mavlink_serial_udb_extra_f4_t {
  * @param sue_RACING_MODE  Serial UDB Extra Firmware racing mode enabled
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_serial_udb_extra_f4_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_serial_udb_extra_f4_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t sue_ROLL_STABILIZATION_AILERONS, uint8_t sue_ROLL_STABILIZATION_RUDDER, uint8_t sue_PITCH_STABILIZATION, uint8_t sue_YAW_STABILIZATION_RUDDER, uint8_t sue_YAW_STABILIZATION_AILERON, uint8_t sue_AILERON_NAVIGATION, uint8_t sue_RUDDER_NAVIGATION, uint8_t sue_ALTITUDEHOLD_STABILIZED, uint8_t sue_ALTITUDEHOLD_WAYPOINT, uint8_t sue_RACING_MODE)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -114,13 +115,14 @@ static inline uint16_t mavlink_msg_serial_udb_extra_f4_pack(uint8_t system_id, u
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_MIN_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_MIN_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_CRC);
 }
 
 /**
  * @brief Pack a serial_udb_extra_f4 message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param sue_ROLL_STABILIZATION_AILERONS  Serial UDB Extra Roll Stabilization with Ailerons Enabled
@@ -135,7 +137,7 @@ static inline uint16_t mavlink_msg_serial_udb_extra_f4_pack(uint8_t system_id, u
  * @param sue_RACING_MODE  Serial UDB Extra Firmware racing mode enabled
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_serial_udb_extra_f4_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_serial_udb_extra_f4_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t sue_ROLL_STABILIZATION_AILERONS,uint8_t sue_ROLL_STABILIZATION_RUDDER,uint8_t sue_PITCH_STABILIZATION,uint8_t sue_YAW_STABILIZATION_RUDDER,uint8_t sue_YAW_STABILIZATION_AILERON,uint8_t sue_AILERON_NAVIGATION,uint8_t sue_RUDDER_NAVIGATION,uint8_t sue_ALTITUDEHOLD_STABILIZED,uint8_t sue_ALTITUDEHOLD_WAYPOINT,uint8_t sue_RACING_MODE)
 {
@@ -170,7 +172,7 @@ static inline uint16_t mavlink_msg_serial_udb_extra_f4_pack_chan(uint8_t system_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_MIN_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_MIN_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F4_CRC);
 }
 
 /**
@@ -178,12 +180,13 @@ static inline uint16_t mavlink_msg_serial_udb_extra_f4_pack_chan(uint8_t system_
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param serial_udb_extra_f4 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_serial_udb_extra_f4_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_serial_udb_extra_f4_t* serial_udb_extra_f4)
+static inline uint16_t mavlink_msg_serial_udb_extra_f4_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_serial_udb_extra_f4_t* serial_udb_extra_f4)
 {
-    return mavlink_msg_serial_udb_extra_f4_pack(system_id, component_id, msg, serial_udb_extra_f4->sue_ROLL_STABILIZATION_AILERONS, serial_udb_extra_f4->sue_ROLL_STABILIZATION_RUDDER, serial_udb_extra_f4->sue_PITCH_STABILIZATION, serial_udb_extra_f4->sue_YAW_STABILIZATION_RUDDER, serial_udb_extra_f4->sue_YAW_STABILIZATION_AILERON, serial_udb_extra_f4->sue_AILERON_NAVIGATION, serial_udb_extra_f4->sue_RUDDER_NAVIGATION, serial_udb_extra_f4->sue_ALTITUDEHOLD_STABILIZED, serial_udb_extra_f4->sue_ALTITUDEHOLD_WAYPOINT, serial_udb_extra_f4->sue_RACING_MODE);
+    return mavlink_msg_serial_udb_extra_f4_pack(system_id, component_id, group_id, msg, serial_udb_extra_f4->sue_ROLL_STABILIZATION_AILERONS, serial_udb_extra_f4->sue_ROLL_STABILIZATION_RUDDER, serial_udb_extra_f4->sue_PITCH_STABILIZATION, serial_udb_extra_f4->sue_YAW_STABILIZATION_RUDDER, serial_udb_extra_f4->sue_YAW_STABILIZATION_AILERON, serial_udb_extra_f4->sue_AILERON_NAVIGATION, serial_udb_extra_f4->sue_RUDDER_NAVIGATION, serial_udb_extra_f4->sue_ALTITUDEHOLD_STABILIZED, serial_udb_extra_f4->sue_ALTITUDEHOLD_WAYPOINT, serial_udb_extra_f4->sue_RACING_MODE);
 }
 
 /**
@@ -191,13 +194,14 @@ static inline uint16_t mavlink_msg_serial_udb_extra_f4_encode(uint8_t system_id,
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param serial_udb_extra_f4 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_serial_udb_extra_f4_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_serial_udb_extra_f4_t* serial_udb_extra_f4)
+static inline uint16_t mavlink_msg_serial_udb_extra_f4_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_serial_udb_extra_f4_t* serial_udb_extra_f4)
 {
-    return mavlink_msg_serial_udb_extra_f4_pack_chan(system_id, component_id, chan, msg, serial_udb_extra_f4->sue_ROLL_STABILIZATION_AILERONS, serial_udb_extra_f4->sue_ROLL_STABILIZATION_RUDDER, serial_udb_extra_f4->sue_PITCH_STABILIZATION, serial_udb_extra_f4->sue_YAW_STABILIZATION_RUDDER, serial_udb_extra_f4->sue_YAW_STABILIZATION_AILERON, serial_udb_extra_f4->sue_AILERON_NAVIGATION, serial_udb_extra_f4->sue_RUDDER_NAVIGATION, serial_udb_extra_f4->sue_ALTITUDEHOLD_STABILIZED, serial_udb_extra_f4->sue_ALTITUDEHOLD_WAYPOINT, serial_udb_extra_f4->sue_RACING_MODE);
+    return mavlink_msg_serial_udb_extra_f4_pack_chan(system_id, component_id, group_id, chan, msg, serial_udb_extra_f4->sue_ROLL_STABILIZATION_AILERONS, serial_udb_extra_f4->sue_ROLL_STABILIZATION_RUDDER, serial_udb_extra_f4->sue_PITCH_STABILIZATION, serial_udb_extra_f4->sue_YAW_STABILIZATION_RUDDER, serial_udb_extra_f4->sue_YAW_STABILIZATION_AILERON, serial_udb_extra_f4->sue_AILERON_NAVIGATION, serial_udb_extra_f4->sue_RUDDER_NAVIGATION, serial_udb_extra_f4->sue_ALTITUDEHOLD_STABILIZED, serial_udb_extra_f4->sue_ALTITUDEHOLD_WAYPOINT, serial_udb_extra_f4->sue_RACING_MODE);
 }
 
 /**

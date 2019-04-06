@@ -45,6 +45,7 @@ typedef struct __mavlink_wheel_distance_t {
  * @brief Pack a wheel_distance message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param time_usec [us] Timestamp (synced to UNIX time or since system boot).
@@ -52,7 +53,7 @@ typedef struct __mavlink_wheel_distance_t {
  * @param distance [m] Distance reported by individual wheel encoders. Forward rotations increase values, reverse rotations decrease them. Not all wheels will necessarily have wheel encoders; the mapping of encoders to wheel positions must be agreed/understood by the endpoints.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wheel_distance_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_wheel_distance_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint8_t count, const double *distance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -70,13 +71,14 @@ static inline uint16_t mavlink_msg_wheel_distance_pack(uint8_t system_id, uint8_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_WHEEL_DISTANCE;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_WHEEL_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_WHEEL_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_CRC);
 }
 
 /**
  * @brief Pack a wheel_distance message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param time_usec [us] Timestamp (synced to UNIX time or since system boot).
@@ -84,7 +86,7 @@ static inline uint16_t mavlink_msg_wheel_distance_pack(uint8_t system_id, uint8_
  * @param distance [m] Distance reported by individual wheel encoders. Forward rotations increase values, reverse rotations decrease them. Not all wheels will necessarily have wheel encoders; the mapping of encoders to wheel positions must be agreed/understood by the endpoints.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_wheel_distance_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_wheel_distance_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint8_t count,const double *distance)
 {
@@ -103,7 +105,7 @@ static inline uint16_t mavlink_msg_wheel_distance_pack_chan(uint8_t system_id, u
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_WHEEL_DISTANCE;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_WHEEL_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_WHEEL_DISTANCE_MIN_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_LEN, MAVLINK_MSG_ID_WHEEL_DISTANCE_CRC);
 }
 
 /**
@@ -111,12 +113,13 @@ static inline uint16_t mavlink_msg_wheel_distance_pack_chan(uint8_t system_id, u
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param wheel_distance C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wheel_distance_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
+static inline uint16_t mavlink_msg_wheel_distance_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
 {
-    return mavlink_msg_wheel_distance_pack(system_id, component_id, msg, wheel_distance->time_usec, wheel_distance->count, wheel_distance->distance);
+    return mavlink_msg_wheel_distance_pack(system_id, component_id, group_id, msg, wheel_distance->time_usec, wheel_distance->count, wheel_distance->distance);
 }
 
 /**
@@ -124,13 +127,14 @@ static inline uint16_t mavlink_msg_wheel_distance_encode(uint8_t system_id, uint
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param wheel_distance C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_wheel_distance_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
+static inline uint16_t mavlink_msg_wheel_distance_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_wheel_distance_t* wheel_distance)
 {
-    return mavlink_msg_wheel_distance_pack_chan(system_id, component_id, chan, msg, wheel_distance->time_usec, wheel_distance->count, wheel_distance->distance);
+    return mavlink_msg_wheel_distance_pack_chan(system_id, component_id, group_id, chan, msg, wheel_distance->time_usec, wheel_distance->count, wheel_distance->distance);
 }
 
 /**

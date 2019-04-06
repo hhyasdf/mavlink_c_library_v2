@@ -59,6 +59,7 @@ typedef struct __mavlink_esc_telemetry_1_to_4_t {
  * @brief Pack a esc_telemetry_1_to_4 message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param temperature [degC] Temperature.
@@ -69,7 +70,7 @@ typedef struct __mavlink_esc_telemetry_1_to_4_t {
  * @param count  count of telemetry packets received (wraps at 65535).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                const uint8_t *temperature, const uint16_t *voltage, const uint16_t *current, const uint16_t *totalcurrent, const uint16_t *rpm, const uint16_t *count)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -95,13 +96,14 @@ static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_pack(uint8_t system_id, 
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_MIN_LEN, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_LEN, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_MIN_LEN, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_LEN, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_CRC);
 }
 
 /**
  * @brief Pack a esc_telemetry_1_to_4 message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param temperature [degC] Temperature.
@@ -112,7 +114,7 @@ static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_pack(uint8_t system_id, 
  * @param count  count of telemetry packets received (wraps at 65535).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    const uint8_t *temperature,const uint16_t *voltage,const uint16_t *current,const uint16_t *totalcurrent,const uint16_t *rpm,const uint16_t *count)
 {
@@ -139,7 +141,7 @@ static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_pack_chan(uint8_t system
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_MIN_LEN, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_LEN, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_MIN_LEN, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_LEN, MAVLINK_MSG_ID_ESC_TELEMETRY_1_TO_4_CRC);
 }
 
 /**
@@ -147,12 +149,13 @@ static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_pack_chan(uint8_t system
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param esc_telemetry_1_to_4 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_esc_telemetry_1_to_4_t* esc_telemetry_1_to_4)
+static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_esc_telemetry_1_to_4_t* esc_telemetry_1_to_4)
 {
-    return mavlink_msg_esc_telemetry_1_to_4_pack(system_id, component_id, msg, esc_telemetry_1_to_4->temperature, esc_telemetry_1_to_4->voltage, esc_telemetry_1_to_4->current, esc_telemetry_1_to_4->totalcurrent, esc_telemetry_1_to_4->rpm, esc_telemetry_1_to_4->count);
+    return mavlink_msg_esc_telemetry_1_to_4_pack(system_id, component_id, group_id, msg, esc_telemetry_1_to_4->temperature, esc_telemetry_1_to_4->voltage, esc_telemetry_1_to_4->current, esc_telemetry_1_to_4->totalcurrent, esc_telemetry_1_to_4->rpm, esc_telemetry_1_to_4->count);
 }
 
 /**
@@ -160,13 +163,14 @@ static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_encode(uint8_t system_id
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param esc_telemetry_1_to_4 C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_esc_telemetry_1_to_4_t* esc_telemetry_1_to_4)
+static inline uint16_t mavlink_msg_esc_telemetry_1_to_4_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_esc_telemetry_1_to_4_t* esc_telemetry_1_to_4)
 {
-    return mavlink_msg_esc_telemetry_1_to_4_pack_chan(system_id, component_id, chan, msg, esc_telemetry_1_to_4->temperature, esc_telemetry_1_to_4->voltage, esc_telemetry_1_to_4->current, esc_telemetry_1_to_4->totalcurrent, esc_telemetry_1_to_4->rpm, esc_telemetry_1_to_4->count);
+    return mavlink_msg_esc_telemetry_1_to_4_pack_chan(system_id, component_id, group_id, chan, msg, esc_telemetry_1_to_4->temperature, esc_telemetry_1_to_4->voltage, esc_telemetry_1_to_4->current, esc_telemetry_1_to_4->totalcurrent, esc_telemetry_1_to_4->rpm, esc_telemetry_1_to_4->count);
 }
 
 /**

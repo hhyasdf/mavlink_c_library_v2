@@ -99,6 +99,7 @@ typedef struct __mavlink_aq_telemetry_f_t {
  * @brief Pack a aq_telemetry_f message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param Index  Index of message
@@ -124,7 +125,7 @@ typedef struct __mavlink_aq_telemetry_f_t {
  * @param value20  value20
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_aq_telemetry_f_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_aq_telemetry_f_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint16_t Index, float value1, float value2, float value3, float value4, float value5, float value6, float value7, float value8, float value9, float value10, float value11, float value12, float value13, float value14, float value15, float value16, float value17, float value18, float value19, float value20)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -180,13 +181,14 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack(uint8_t system_id, uint8_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_AQ_TELEMETRY_F;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_AQ_TELEMETRY_F_MIN_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_AQ_TELEMETRY_F_MIN_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_CRC);
 }
 
 /**
  * @brief Pack a aq_telemetry_f message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param Index  Index of message
@@ -212,7 +214,7 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack(uint8_t system_id, uint8_
  * @param value20  value20
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_aq_telemetry_f_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_aq_telemetry_f_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint16_t Index,float value1,float value2,float value3,float value4,float value5,float value6,float value7,float value8,float value9,float value10,float value11,float value12,float value13,float value14,float value15,float value16,float value17,float value18,float value19,float value20)
 {
@@ -269,7 +271,7 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack_chan(uint8_t system_id, u
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_AQ_TELEMETRY_F;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F_MIN_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F_MIN_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_CRC);
 }
 
 /**
@@ -277,12 +279,13 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack_chan(uint8_t system_id, u
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param aq_telemetry_f C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_aq_telemetry_f_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_aq_telemetry_f_t* aq_telemetry_f)
+static inline uint16_t mavlink_msg_aq_telemetry_f_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_aq_telemetry_f_t* aq_telemetry_f)
 {
-    return mavlink_msg_aq_telemetry_f_pack(system_id, component_id, msg, aq_telemetry_f->Index, aq_telemetry_f->value1, aq_telemetry_f->value2, aq_telemetry_f->value3, aq_telemetry_f->value4, aq_telemetry_f->value5, aq_telemetry_f->value6, aq_telemetry_f->value7, aq_telemetry_f->value8, aq_telemetry_f->value9, aq_telemetry_f->value10, aq_telemetry_f->value11, aq_telemetry_f->value12, aq_telemetry_f->value13, aq_telemetry_f->value14, aq_telemetry_f->value15, aq_telemetry_f->value16, aq_telemetry_f->value17, aq_telemetry_f->value18, aq_telemetry_f->value19, aq_telemetry_f->value20);
+    return mavlink_msg_aq_telemetry_f_pack(system_id, component_id, group_id, msg, aq_telemetry_f->Index, aq_telemetry_f->value1, aq_telemetry_f->value2, aq_telemetry_f->value3, aq_telemetry_f->value4, aq_telemetry_f->value5, aq_telemetry_f->value6, aq_telemetry_f->value7, aq_telemetry_f->value8, aq_telemetry_f->value9, aq_telemetry_f->value10, aq_telemetry_f->value11, aq_telemetry_f->value12, aq_telemetry_f->value13, aq_telemetry_f->value14, aq_telemetry_f->value15, aq_telemetry_f->value16, aq_telemetry_f->value17, aq_telemetry_f->value18, aq_telemetry_f->value19, aq_telemetry_f->value20);
 }
 
 /**
@@ -290,13 +293,14 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_encode(uint8_t system_id, uint
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param aq_telemetry_f C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_aq_telemetry_f_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_aq_telemetry_f_t* aq_telemetry_f)
+static inline uint16_t mavlink_msg_aq_telemetry_f_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_aq_telemetry_f_t* aq_telemetry_f)
 {
-    return mavlink_msg_aq_telemetry_f_pack_chan(system_id, component_id, chan, msg, aq_telemetry_f->Index, aq_telemetry_f->value1, aq_telemetry_f->value2, aq_telemetry_f->value3, aq_telemetry_f->value4, aq_telemetry_f->value5, aq_telemetry_f->value6, aq_telemetry_f->value7, aq_telemetry_f->value8, aq_telemetry_f->value9, aq_telemetry_f->value10, aq_telemetry_f->value11, aq_telemetry_f->value12, aq_telemetry_f->value13, aq_telemetry_f->value14, aq_telemetry_f->value15, aq_telemetry_f->value16, aq_telemetry_f->value17, aq_telemetry_f->value18, aq_telemetry_f->value19, aq_telemetry_f->value20);
+    return mavlink_msg_aq_telemetry_f_pack_chan(system_id, component_id, group_id, chan, msg, aq_telemetry_f->Index, aq_telemetry_f->value1, aq_telemetry_f->value2, aq_telemetry_f->value3, aq_telemetry_f->value4, aq_telemetry_f->value5, aq_telemetry_f->value6, aq_telemetry_f->value7, aq_telemetry_f->value8, aq_telemetry_f->value9, aq_telemetry_f->value10, aq_telemetry_f->value11, aq_telemetry_f->value12, aq_telemetry_f->value13, aq_telemetry_f->value14, aq_telemetry_f->value15, aq_telemetry_f->value16, aq_telemetry_f->value17, aq_telemetry_f->value18, aq_telemetry_f->value19, aq_telemetry_f->value20);
 }
 
 /**

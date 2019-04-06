@@ -54,6 +54,7 @@ typedef struct __mavlink_sensor_bias_t {
  * @brief Pack a sensor_bias message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param axBias [m/s] Accelerometer X bias
@@ -64,7 +65,7 @@ typedef struct __mavlink_sensor_bias_t {
  * @param gzBias [rad/s] Gyro Z bias
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sensor_bias_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_sensor_bias_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                float axBias, float ayBias, float azBias, float gxBias, float gyBias, float gzBias)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -90,13 +91,14 @@ static inline uint16_t mavlink_msg_sensor_bias_pack(uint8_t system_id, uint8_t c
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SENSOR_BIAS;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SENSOR_BIAS_MIN_LEN, MAVLINK_MSG_ID_SENSOR_BIAS_LEN, MAVLINK_MSG_ID_SENSOR_BIAS_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_SENSOR_BIAS_MIN_LEN, MAVLINK_MSG_ID_SENSOR_BIAS_LEN, MAVLINK_MSG_ID_SENSOR_BIAS_CRC);
 }
 
 /**
  * @brief Pack a sensor_bias message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param axBias [m/s] Accelerometer X bias
@@ -107,7 +109,7 @@ static inline uint16_t mavlink_msg_sensor_bias_pack(uint8_t system_id, uint8_t c
  * @param gzBias [rad/s] Gyro Z bias
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sensor_bias_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_sensor_bias_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    float axBias,float ayBias,float azBias,float gxBias,float gyBias,float gzBias)
 {
@@ -134,7 +136,7 @@ static inline uint16_t mavlink_msg_sensor_bias_pack_chan(uint8_t system_id, uint
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SENSOR_BIAS;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SENSOR_BIAS_MIN_LEN, MAVLINK_MSG_ID_SENSOR_BIAS_LEN, MAVLINK_MSG_ID_SENSOR_BIAS_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_SENSOR_BIAS_MIN_LEN, MAVLINK_MSG_ID_SENSOR_BIAS_LEN, MAVLINK_MSG_ID_SENSOR_BIAS_CRC);
 }
 
 /**
@@ -142,12 +144,13 @@ static inline uint16_t mavlink_msg_sensor_bias_pack_chan(uint8_t system_id, uint
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param sensor_bias C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sensor_bias_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sensor_bias_t* sensor_bias)
+static inline uint16_t mavlink_msg_sensor_bias_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_sensor_bias_t* sensor_bias)
 {
-    return mavlink_msg_sensor_bias_pack(system_id, component_id, msg, sensor_bias->axBias, sensor_bias->ayBias, sensor_bias->azBias, sensor_bias->gxBias, sensor_bias->gyBias, sensor_bias->gzBias);
+    return mavlink_msg_sensor_bias_pack(system_id, component_id, group_id, msg, sensor_bias->axBias, sensor_bias->ayBias, sensor_bias->azBias, sensor_bias->gxBias, sensor_bias->gyBias, sensor_bias->gzBias);
 }
 
 /**
@@ -155,13 +158,14 @@ static inline uint16_t mavlink_msg_sensor_bias_encode(uint8_t system_id, uint8_t
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param sensor_bias C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sensor_bias_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sensor_bias_t* sensor_bias)
+static inline uint16_t mavlink_msg_sensor_bias_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sensor_bias_t* sensor_bias)
 {
-    return mavlink_msg_sensor_bias_pack_chan(system_id, component_id, chan, msg, sensor_bias->axBias, sensor_bias->ayBias, sensor_bias->azBias, sensor_bias->gxBias, sensor_bias->gyBias, sensor_bias->gzBias);
+    return mavlink_msg_sensor_bias_pack_chan(system_id, component_id, group_id, chan, msg, sensor_bias->axBias, sensor_bias->ayBias, sensor_bias->azBias, sensor_bias->gxBias, sensor_bias->gyBias, sensor_bias->gzBias);
 }
 
 /**

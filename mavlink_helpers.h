@@ -200,7 +200,7 @@ MAVLINK_HELPER bool mavlink_signature_check(mavlink_signing_t *signing,
  * @param length Message length
  */
 MAVLINK_HELPER uint16_t mavlink_finalize_message_buffer(mavlink_message_t* msg, uint8_t system_id, uint8_t component_id,
-						      mavlink_status_t* status, uint8_t min_length, uint8_t length, uint8_t crc_extra)
+						      uint8_t group_id, mavlink_status_t* status, uint8_t min_length, uint8_t length, uint8_t crc_extra)
 {
 	bool mavlink1 = (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) != 0;
 	bool signing = 	(!mavlink1) && status->signing && (status->signing->flags & MAVLINK_SIGNING_FLAG_SIGN_OUTGOING);
@@ -216,6 +216,7 @@ MAVLINK_HELPER uint16_t mavlink_finalize_message_buffer(mavlink_message_t* msg, 
 	msg->len = mavlink1?min_length:_mav_trim_payload(_MAV_PAYLOAD(msg), length);
 	msg->sysid = system_id;
 	msg->compid = component_id;
+	msg->groupid = group_id;
 	msg->incompat_flags = 0;
 	if (signing) {
 		msg->incompat_flags |= MAVLINK_IFLAG_SIGNED;
@@ -231,25 +232,25 @@ MAVLINK_HELPER uint16_t mavlink_finalize_message_buffer(mavlink_message_t* msg, 
 		buf[2] = msg->seq;
 		buf[3] = msg->sysid;
 		buf[4] = msg->compid;
-		buf[5] = msg->msgid & 0xFF;
+		buf[5] = msg->groupid;
+		buf[6] = msg->msgid & 0xFF;
 	} else {
 		buf[2] = msg->incompat_flags;
 		buf[3] = msg->compat_flags;
 		buf[4] = msg->seq;
 		buf[5] = msg->sysid;
 		buf[6] = msg->compid;
-		buf[7] = msg->msgid & 0xFF;
-		buf[8] = (msg->msgid >> 8) & 0xFF;
-		buf[9] = (msg->msgid >> 16) & 0xFF;
+		buf[7] = msg->groupid;
+		buf[8] = msg->msgid & 0xFF;
+		buf[9] = (msg->msgid >> 8) & 0xFF;
+		buf[10] = (msg->msgid >> 16) & 0xFF;
 	}
 	
-	uint16_t checksum = crc_calculate(&buf[1], header_len-1);
-	crc_accumulate_buffer(&checksum, _MAV_PAYLOAD(msg), msg->len);
-	crc_accumulate(crc_extra, &checksum);
-	mavlink_ck_a(msg) = (uint8_t)(checksum & 0xFF);
-	mavlink_ck_b(msg) = (uint8_t)(checksum >> 8);
-
-	msg->checksum = checksum;
+	msg->checksum = crc_calculate(&buf[1], header_len-1);
+	crc_accumulate_buffer(&msg->checksum, _MAV_PAYLOAD(msg), msg->len);
+	crc_accumulate(crc_extra, &msg->checksum);
+	mavlink_ck_a(msg) = (uint8_t)(msg->checksum & 0xFF);
+	mavlink_ck_b(msg) = (uint8_t)(msg->checksum >> 8);
 
 	if (signing) {
 		mavlink_sign_packet(status->signing,
@@ -263,19 +264,19 @@ MAVLINK_HELPER uint16_t mavlink_finalize_message_buffer(mavlink_message_t* msg, 
 }
 
 MAVLINK_HELPER uint16_t mavlink_finalize_message_chan(mavlink_message_t* msg, uint8_t system_id, uint8_t component_id,
-						      uint8_t chan, uint8_t min_length, uint8_t length, uint8_t crc_extra)
+						      uint8_t group_id, uint8_t chan, uint8_t min_length, uint8_t length, uint8_t crc_extra)
 {
 	mavlink_status_t *status = mavlink_get_channel_status(chan);
-	return mavlink_finalize_message_buffer(msg, system_id, component_id, status, min_length, length, crc_extra);
+	return mavlink_finalize_message_buffer(msg, system_id, component_id, group_id, status, min_length, length, crc_extra);
 }
 
 /**
  * @brief Finalize a MAVLink message with MAVLINK_COMM_0 as default channel
  */
 MAVLINK_HELPER uint16_t mavlink_finalize_message(mavlink_message_t* msg, uint8_t system_id, uint8_t component_id, 
-						 uint8_t min_length, uint8_t length, uint8_t crc_extra)
+						 uint8_t group_id, uint8_t min_length, uint8_t length, uint8_t crc_extra)
 {
-    return mavlink_finalize_message_chan(msg, system_id, component_id, MAVLINK_COMM_0, min_length, length, crc_extra);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, MAVLINK_COMM_0, min_length, length, crc_extra);
 }
 
 static inline void _mav_parse_error(mavlink_status_t *status)
@@ -316,7 +317,8 @@ MAVLINK_HELPER void _mav_finalize_message_chan_send(mavlink_channel_t chan, uint
             buf[2] = status->current_tx_seq;
             buf[3] = mavlink_system.sysid;
             buf[4] = mavlink_system.compid;
-            buf[5] = msgid & 0xFF;
+			buf[5] = mavlink_system.groupid;
+            buf[6] = msgid & 0xFF;
         } else {
 	    uint8_t incompat_flags = 0;
 	    if (signing) {
@@ -330,9 +332,10 @@ MAVLINK_HELPER void _mav_finalize_message_chan_send(mavlink_channel_t chan, uint
             buf[4] = status->current_tx_seq;
             buf[5] = mavlink_system.sysid;
             buf[6] = mavlink_system.compid;
-            buf[7] = msgid & 0xFF;
-            buf[8] = (msgid >> 8) & 0xFF;
-            buf[9] = (msgid >> 16) & 0xFF;
+			buf[7] = mavlink_system.groupid;
+            buf[8] = msgid & 0xFF;
+            buf[9] = (msgid >> 8) & 0xFF;
+            buf[10] = (msgid >> 16) & 0xFF;
         }
 	status->current_tx_seq++;
 	checksum = crc_calculate((const uint8_t*)&buf[1], header_len);
@@ -384,7 +387,8 @@ MAVLINK_HELPER void _mavlink_resend_uart(mavlink_channel_t chan, const mavlink_m
             buf[2] = msg->seq;
             buf[3] = msg->sysid;
             buf[4] = msg->compid;
-            buf[5] = msg->msgid & 0xFF;
+			buf[5] = msg->groupid;
+            buf[6] = msg->msgid & 0xFF;
             _mavlink_send_uart(chan, (const char*)buf, header_len);
         } else {
             header_len = MAVLINK_CORE_HEADER_LEN + 1;
@@ -398,9 +402,10 @@ MAVLINK_HELPER void _mavlink_resend_uart(mavlink_channel_t chan, const mavlink_m
             buf[4] = msg->seq;
             buf[5] = msg->sysid;
             buf[6] = msg->compid;
-            buf[7] = msg->msgid & 0xFF;
-            buf[8] = (msg->msgid >> 8) & 0xFF;
-            buf[9] = (msg->msgid >> 16) & 0xFF;
+			buf[7] = msg->compid;
+            buf[8] = msg->msgid & 0xFF;
+            buf[9] = (msg->msgid >> 8) & 0xFF;
+            buf[10] = (msg->msgid >> 16) & 0xFF;
             _mavlink_send_uart(chan, (const char *)buf, header_len);
         }
 	_mavlink_send_uart(chan, _MAV_PAYLOAD(msg), msg->len);
@@ -429,8 +434,9 @@ MAVLINK_HELPER uint16_t mavlink_msg_to_send_buffer(uint8_t *buf, const mavlink_m
 		buf[2] = msg->seq;
 		buf[3] = msg->sysid;
 		buf[4] = msg->compid;
-		buf[5] = msg->msgid & 0xFF;
-		memcpy(&buf[6], _MAV_PAYLOAD(msg), msg->len);
+		buf[5] = msg->groupid;
+		buf[6] = msg->msgid & 0xFF;
+		memcpy(&buf[7], _MAV_PAYLOAD(msg), msg->len);
 		ck = buf + header_len + 1 + (uint16_t)msg->len;
 	} else {
 		length = _mav_trim_payload(_MAV_PAYLOAD(msg), length);
@@ -442,10 +448,11 @@ MAVLINK_HELPER uint16_t mavlink_msg_to_send_buffer(uint8_t *buf, const mavlink_m
 		buf[4] = msg->seq;
 		buf[5] = msg->sysid;
 		buf[6] = msg->compid;
-		buf[7] = msg->msgid & 0xFF;
-		buf[8] = (msg->msgid >> 8) & 0xFF;
-		buf[9] = (msg->msgid >> 16) & 0xFF;
-		memcpy(&buf[10], _MAV_PAYLOAD(msg), length);
+		buf[7] = msg->groupid;
+		buf[8] = msg->msgid & 0xFF;
+		buf[9] = (msg->msgid >> 8) & 0xFF;
+		buf[10] = (msg->msgid >> 16) & 0xFF;
+		memcpy(&buf[11], _MAV_PAYLOAD(msg), length);
 		ck = buf + header_len + 1 + (uint16_t)length;
 		signature_len = (msg->incompat_flags & MAVLINK_IFLAG_SIGNED)?MAVLINK_SIGNATURE_BLOCK_LEN:0;
 	}
@@ -676,6 +683,12 @@ MAVLINK_HELPER uint8_t mavlink_frame_char_buffer(mavlink_message_t* rxmsg,
 		break;
 
 	case MAVLINK_PARSE_STATE_GOT_COMPID:
+		rxmsg->groupid = c;
+		mavlink_update_checksum(rxmsg, c);
+		status->parse_state = MAVLINK_PARSE_STATE_GOT_GROUPID;
+		break;
+
+	case MAVLINK_PARSE_STATE_GOT_GROUPID:
 		rxmsg->msgid = c;
 		mavlink_update_checksum(rxmsg, c);
                 if (status->flags & MAVLINK_STATUS_FLAG_IN_MAVLINK1) {

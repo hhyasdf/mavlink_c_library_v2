@@ -52,6 +52,7 @@ typedef struct __mavlink_param_ext_value_t {
  * @brief Pack a param_ext_value message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param param_id  Parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
@@ -61,7 +62,7 @@ typedef struct __mavlink_param_ext_value_t {
  * @param param_index  Index of this parameter
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_ext_value_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_param_ext_value_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                const char *param_id, const char *param_value, uint8_t param_type, uint16_t param_count, uint16_t param_index)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -83,13 +84,14 @@ static inline uint16_t mavlink_msg_param_ext_value_pack(uint8_t system_id, uint8
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_PARAM_EXT_VALUE;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_PARAM_EXT_VALUE_MIN_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_PARAM_EXT_VALUE_MIN_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_CRC);
 }
 
 /**
  * @brief Pack a param_ext_value message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param param_id  Parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
@@ -99,7 +101,7 @@ static inline uint16_t mavlink_msg_param_ext_value_pack(uint8_t system_id, uint8
  * @param param_index  Index of this parameter
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_ext_value_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_param_ext_value_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    const char *param_id,const char *param_value,uint8_t param_type,uint16_t param_count,uint16_t param_index)
 {
@@ -122,7 +124,7 @@ static inline uint16_t mavlink_msg_param_ext_value_pack_chan(uint8_t system_id, 
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_PARAM_EXT_VALUE;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_PARAM_EXT_VALUE_MIN_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_PARAM_EXT_VALUE_MIN_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_LEN, MAVLINK_MSG_ID_PARAM_EXT_VALUE_CRC);
 }
 
 /**
@@ -130,12 +132,13 @@ static inline uint16_t mavlink_msg_param_ext_value_pack_chan(uint8_t system_id, 
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param param_ext_value C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_ext_value_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
+static inline uint16_t mavlink_msg_param_ext_value_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
 {
-    return mavlink_msg_param_ext_value_pack(system_id, component_id, msg, param_ext_value->param_id, param_ext_value->param_value, param_ext_value->param_type, param_ext_value->param_count, param_ext_value->param_index);
+    return mavlink_msg_param_ext_value_pack(system_id, component_id, group_id, msg, param_ext_value->param_id, param_ext_value->param_value, param_ext_value->param_type, param_ext_value->param_count, param_ext_value->param_index);
 }
 
 /**
@@ -143,13 +146,14 @@ static inline uint16_t mavlink_msg_param_ext_value_encode(uint8_t system_id, uin
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param param_ext_value C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_ext_value_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
+static inline uint16_t mavlink_msg_param_ext_value_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_ext_value_t* param_ext_value)
 {
-    return mavlink_msg_param_ext_value_pack_chan(system_id, component_id, chan, msg, param_ext_value->param_id, param_ext_value->param_value, param_ext_value->param_type, param_ext_value->param_count, param_ext_value->param_index);
+    return mavlink_msg_param_ext_value_pack_chan(system_id, component_id, group_id, chan, msg, param_ext_value->param_id, param_ext_value->param_value, param_ext_value->param_type, param_ext_value->param_count, param_ext_value->param_index);
 }
 
 /**

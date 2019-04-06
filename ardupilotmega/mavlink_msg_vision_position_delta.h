@@ -52,6 +52,7 @@ typedef struct __mavlink_vision_position_delta_t {
  * @brief Pack a vision_position_delta message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param time_usec [us] Timestamp (synced to UNIX time or since system boot).
@@ -61,7 +62,7 @@ typedef struct __mavlink_vision_position_delta_t {
  * @param confidence [%] Normalised confidence value from 0 to 100.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_vision_position_delta_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_vision_position_delta_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint64_t time_usec, uint64_t time_delta_usec, const float *angle_delta, const float *position_delta, float confidence)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -83,13 +84,14 @@ static inline uint16_t mavlink_msg_vision_position_delta_pack(uint8_t system_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_VISION_POSITION_DELTA;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_VISION_POSITION_DELTA_MIN_LEN, MAVLINK_MSG_ID_VISION_POSITION_DELTA_LEN, MAVLINK_MSG_ID_VISION_POSITION_DELTA_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_VISION_POSITION_DELTA_MIN_LEN, MAVLINK_MSG_ID_VISION_POSITION_DELTA_LEN, MAVLINK_MSG_ID_VISION_POSITION_DELTA_CRC);
 }
 
 /**
  * @brief Pack a vision_position_delta message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param time_usec [us] Timestamp (synced to UNIX time or since system boot).
@@ -99,7 +101,7 @@ static inline uint16_t mavlink_msg_vision_position_delta_pack(uint8_t system_id,
  * @param confidence [%] Normalised confidence value from 0 to 100.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_vision_position_delta_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_vision_position_delta_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t time_usec,uint64_t time_delta_usec,const float *angle_delta,const float *position_delta,float confidence)
 {
@@ -122,7 +124,7 @@ static inline uint16_t mavlink_msg_vision_position_delta_pack_chan(uint8_t syste
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_VISION_POSITION_DELTA;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_VISION_POSITION_DELTA_MIN_LEN, MAVLINK_MSG_ID_VISION_POSITION_DELTA_LEN, MAVLINK_MSG_ID_VISION_POSITION_DELTA_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_VISION_POSITION_DELTA_MIN_LEN, MAVLINK_MSG_ID_VISION_POSITION_DELTA_LEN, MAVLINK_MSG_ID_VISION_POSITION_DELTA_CRC);
 }
 
 /**
@@ -130,12 +132,13 @@ static inline uint16_t mavlink_msg_vision_position_delta_pack_chan(uint8_t syste
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param vision_position_delta C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_vision_position_delta_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_vision_position_delta_t* vision_position_delta)
+static inline uint16_t mavlink_msg_vision_position_delta_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_vision_position_delta_t* vision_position_delta)
 {
-    return mavlink_msg_vision_position_delta_pack(system_id, component_id, msg, vision_position_delta->time_usec, vision_position_delta->time_delta_usec, vision_position_delta->angle_delta, vision_position_delta->position_delta, vision_position_delta->confidence);
+    return mavlink_msg_vision_position_delta_pack(system_id, component_id, group_id, msg, vision_position_delta->time_usec, vision_position_delta->time_delta_usec, vision_position_delta->angle_delta, vision_position_delta->position_delta, vision_position_delta->confidence);
 }
 
 /**
@@ -143,13 +146,14 @@ static inline uint16_t mavlink_msg_vision_position_delta_encode(uint8_t system_i
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param vision_position_delta C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_vision_position_delta_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vision_position_delta_t* vision_position_delta)
+static inline uint16_t mavlink_msg_vision_position_delta_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vision_position_delta_t* vision_position_delta)
 {
-    return mavlink_msg_vision_position_delta_pack_chan(system_id, component_id, chan, msg, vision_position_delta->time_usec, vision_position_delta->time_delta_usec, vision_position_delta->angle_delta, vision_position_delta->position_delta, vision_position_delta->confidence);
+    return mavlink_msg_vision_position_delta_pack_chan(system_id, component_id, group_id, chan, msg, vision_position_delta->time_usec, vision_position_delta->time_delta_usec, vision_position_delta->angle_delta, vision_position_delta->position_delta, vision_position_delta->confidence);
 }
 
 /**

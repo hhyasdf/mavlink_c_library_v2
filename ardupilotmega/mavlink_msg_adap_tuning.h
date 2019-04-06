@@ -75,6 +75,7 @@ typedef struct __mavlink_adap_tuning_t {
  * @brief Pack a adap_tuning message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param axis  Axis.
@@ -92,7 +93,7 @@ typedef struct __mavlink_adap_tuning_t {
  * @param u  u adaptive controlled output command.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_adap_tuning_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_adap_tuning_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t axis, float desired, float achieved, float error, float theta, float omega, float sigma, float theta_dot, float omega_dot, float sigma_dot, float f, float f_dot, float u)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -132,13 +133,14 @@ static inline uint16_t mavlink_msg_adap_tuning_pack(uint8_t system_id, uint8_t c
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ADAP_TUNING;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_ADAP_TUNING_MIN_LEN, MAVLINK_MSG_ID_ADAP_TUNING_LEN, MAVLINK_MSG_ID_ADAP_TUNING_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_ADAP_TUNING_MIN_LEN, MAVLINK_MSG_ID_ADAP_TUNING_LEN, MAVLINK_MSG_ID_ADAP_TUNING_CRC);
 }
 
 /**
  * @brief Pack a adap_tuning message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param axis  Axis.
@@ -156,7 +158,7 @@ static inline uint16_t mavlink_msg_adap_tuning_pack(uint8_t system_id, uint8_t c
  * @param u  u adaptive controlled output command.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_adap_tuning_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_adap_tuning_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t axis,float desired,float achieved,float error,float theta,float omega,float sigma,float theta_dot,float omega_dot,float sigma_dot,float f,float f_dot,float u)
 {
@@ -197,7 +199,7 @@ static inline uint16_t mavlink_msg_adap_tuning_pack_chan(uint8_t system_id, uint
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ADAP_TUNING;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_ADAP_TUNING_MIN_LEN, MAVLINK_MSG_ID_ADAP_TUNING_LEN, MAVLINK_MSG_ID_ADAP_TUNING_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_ADAP_TUNING_MIN_LEN, MAVLINK_MSG_ID_ADAP_TUNING_LEN, MAVLINK_MSG_ID_ADAP_TUNING_CRC);
 }
 
 /**
@@ -205,12 +207,13 @@ static inline uint16_t mavlink_msg_adap_tuning_pack_chan(uint8_t system_id, uint
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param adap_tuning C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_adap_tuning_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_adap_tuning_t* adap_tuning)
+static inline uint16_t mavlink_msg_adap_tuning_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_adap_tuning_t* adap_tuning)
 {
-    return mavlink_msg_adap_tuning_pack(system_id, component_id, msg, adap_tuning->axis, adap_tuning->desired, adap_tuning->achieved, adap_tuning->error, adap_tuning->theta, adap_tuning->omega, adap_tuning->sigma, adap_tuning->theta_dot, adap_tuning->omega_dot, adap_tuning->sigma_dot, adap_tuning->f, adap_tuning->f_dot, adap_tuning->u);
+    return mavlink_msg_adap_tuning_pack(system_id, component_id, group_id, msg, adap_tuning->axis, adap_tuning->desired, adap_tuning->achieved, adap_tuning->error, adap_tuning->theta, adap_tuning->omega, adap_tuning->sigma, adap_tuning->theta_dot, adap_tuning->omega_dot, adap_tuning->sigma_dot, adap_tuning->f, adap_tuning->f_dot, adap_tuning->u);
 }
 
 /**
@@ -218,13 +221,14 @@ static inline uint16_t mavlink_msg_adap_tuning_encode(uint8_t system_id, uint8_t
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param adap_tuning C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_adap_tuning_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_adap_tuning_t* adap_tuning)
+static inline uint16_t mavlink_msg_adap_tuning_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_adap_tuning_t* adap_tuning)
 {
-    return mavlink_msg_adap_tuning_pack_chan(system_id, component_id, chan, msg, adap_tuning->axis, adap_tuning->desired, adap_tuning->achieved, adap_tuning->error, adap_tuning->theta, adap_tuning->omega, adap_tuning->sigma, adap_tuning->theta_dot, adap_tuning->omega_dot, adap_tuning->sigma_dot, adap_tuning->f, adap_tuning->f_dot, adap_tuning->u);
+    return mavlink_msg_adap_tuning_pack_chan(system_id, component_id, group_id, chan, msg, adap_tuning->axis, adap_tuning->desired, adap_tuning->achieved, adap_tuning->error, adap_tuning->theta, adap_tuning->omega, adap_tuning->sigma, adap_tuning->theta_dot, adap_tuning->omega_dot, adap_tuning->sigma_dot, adap_tuning->f, adap_tuning->f_dot, adap_tuning->u);
 }
 
 /**

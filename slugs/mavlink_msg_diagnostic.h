@@ -54,6 +54,7 @@ typedef struct __mavlink_diagnostic_t {
  * @brief Pack a diagnostic message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param diagFl1  Diagnostic float 1
@@ -64,7 +65,7 @@ typedef struct __mavlink_diagnostic_t {
  * @param diagSh3  Diagnostic short 3
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_diagnostic_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_diagnostic_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                float diagFl1, float diagFl2, float diagFl3, int16_t diagSh1, int16_t diagSh2, int16_t diagSh3)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -90,13 +91,14 @@ static inline uint16_t mavlink_msg_diagnostic_pack(uint8_t system_id, uint8_t co
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_DIAGNOSTIC;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_DIAGNOSTIC_MIN_LEN, MAVLINK_MSG_ID_DIAGNOSTIC_LEN, MAVLINK_MSG_ID_DIAGNOSTIC_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_DIAGNOSTIC_MIN_LEN, MAVLINK_MSG_ID_DIAGNOSTIC_LEN, MAVLINK_MSG_ID_DIAGNOSTIC_CRC);
 }
 
 /**
  * @brief Pack a diagnostic message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param diagFl1  Diagnostic float 1
@@ -107,7 +109,7 @@ static inline uint16_t mavlink_msg_diagnostic_pack(uint8_t system_id, uint8_t co
  * @param diagSh3  Diagnostic short 3
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_diagnostic_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_diagnostic_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    float diagFl1,float diagFl2,float diagFl3,int16_t diagSh1,int16_t diagSh2,int16_t diagSh3)
 {
@@ -134,7 +136,7 @@ static inline uint16_t mavlink_msg_diagnostic_pack_chan(uint8_t system_id, uint8
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_DIAGNOSTIC;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_DIAGNOSTIC_MIN_LEN, MAVLINK_MSG_ID_DIAGNOSTIC_LEN, MAVLINK_MSG_ID_DIAGNOSTIC_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_DIAGNOSTIC_MIN_LEN, MAVLINK_MSG_ID_DIAGNOSTIC_LEN, MAVLINK_MSG_ID_DIAGNOSTIC_CRC);
 }
 
 /**
@@ -142,12 +144,13 @@ static inline uint16_t mavlink_msg_diagnostic_pack_chan(uint8_t system_id, uint8
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param diagnostic C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_diagnostic_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_diagnostic_t* diagnostic)
+static inline uint16_t mavlink_msg_diagnostic_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_diagnostic_t* diagnostic)
 {
-    return mavlink_msg_diagnostic_pack(system_id, component_id, msg, diagnostic->diagFl1, diagnostic->diagFl2, diagnostic->diagFl3, diagnostic->diagSh1, diagnostic->diagSh2, diagnostic->diagSh3);
+    return mavlink_msg_diagnostic_pack(system_id, component_id, group_id, msg, diagnostic->diagFl1, diagnostic->diagFl2, diagnostic->diagFl3, diagnostic->diagSh1, diagnostic->diagSh2, diagnostic->diagSh3);
 }
 
 /**
@@ -155,13 +158,14 @@ static inline uint16_t mavlink_msg_diagnostic_encode(uint8_t system_id, uint8_t 
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param diagnostic C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_diagnostic_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_diagnostic_t* diagnostic)
+static inline uint16_t mavlink_msg_diagnostic_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_diagnostic_t* diagnostic)
 {
-    return mavlink_msg_diagnostic_pack_chan(system_id, component_id, chan, msg, diagnostic->diagFl1, diagnostic->diagFl2, diagnostic->diagFl3, diagnostic->diagSh1, diagnostic->diagSh2, diagnostic->diagSh3);
+    return mavlink_msg_diagnostic_pack_chan(system_id, component_id, group_id, chan, msg, diagnostic->diagFl1, diagnostic->diagFl2, diagnostic->diagFl3, diagnostic->diagSh1, diagnostic->diagSh2, diagnostic->diagSh3);
 }
 
 /**

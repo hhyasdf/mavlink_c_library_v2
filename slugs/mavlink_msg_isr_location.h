@@ -57,6 +57,7 @@ typedef struct __mavlink_isr_location_t {
  * @brief Pack a isr_location message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param target  The system reporting the action
@@ -68,7 +69,7 @@ typedef struct __mavlink_isr_location_t {
  * @param option3  Option 3
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_isr_location_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_isr_location_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t target, float latitude, float longitude, float height, uint8_t option1, uint8_t option2, uint8_t option3)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -96,13 +97,14 @@ static inline uint16_t mavlink_msg_isr_location_pack(uint8_t system_id, uint8_t 
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ISR_LOCATION;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_ISR_LOCATION_MIN_LEN, MAVLINK_MSG_ID_ISR_LOCATION_LEN, MAVLINK_MSG_ID_ISR_LOCATION_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_ISR_LOCATION_MIN_LEN, MAVLINK_MSG_ID_ISR_LOCATION_LEN, MAVLINK_MSG_ID_ISR_LOCATION_CRC);
 }
 
 /**
  * @brief Pack a isr_location message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param target  The system reporting the action
@@ -114,7 +116,7 @@ static inline uint16_t mavlink_msg_isr_location_pack(uint8_t system_id, uint8_t 
  * @param option3  Option 3
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_isr_location_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_isr_location_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t target,float latitude,float longitude,float height,uint8_t option1,uint8_t option2,uint8_t option3)
 {
@@ -143,7 +145,7 @@ static inline uint16_t mavlink_msg_isr_location_pack_chan(uint8_t system_id, uin
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ISR_LOCATION;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_ISR_LOCATION_MIN_LEN, MAVLINK_MSG_ID_ISR_LOCATION_LEN, MAVLINK_MSG_ID_ISR_LOCATION_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_ISR_LOCATION_MIN_LEN, MAVLINK_MSG_ID_ISR_LOCATION_LEN, MAVLINK_MSG_ID_ISR_LOCATION_CRC);
 }
 
 /**
@@ -151,12 +153,13 @@ static inline uint16_t mavlink_msg_isr_location_pack_chan(uint8_t system_id, uin
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param isr_location C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_isr_location_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_isr_location_t* isr_location)
+static inline uint16_t mavlink_msg_isr_location_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_isr_location_t* isr_location)
 {
-    return mavlink_msg_isr_location_pack(system_id, component_id, msg, isr_location->target, isr_location->latitude, isr_location->longitude, isr_location->height, isr_location->option1, isr_location->option2, isr_location->option3);
+    return mavlink_msg_isr_location_pack(system_id, component_id, group_id, msg, isr_location->target, isr_location->latitude, isr_location->longitude, isr_location->height, isr_location->option1, isr_location->option2, isr_location->option3);
 }
 
 /**
@@ -164,13 +167,14 @@ static inline uint16_t mavlink_msg_isr_location_encode(uint8_t system_id, uint8_
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param isr_location C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_isr_location_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_isr_location_t* isr_location)
+static inline uint16_t mavlink_msg_isr_location_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_isr_location_t* isr_location)
 {
-    return mavlink_msg_isr_location_pack_chan(system_id, component_id, chan, msg, isr_location->target, isr_location->latitude, isr_location->longitude, isr_location->height, isr_location->option1, isr_location->option2, isr_location->option3);
+    return mavlink_msg_isr_location_pack_chan(system_id, component_id, group_id, chan, msg, isr_location->target, isr_location->latitude, isr_location->longitude, isr_location->height, isr_location->option1, isr_location->option2, isr_location->option3);
 }
 
 /**

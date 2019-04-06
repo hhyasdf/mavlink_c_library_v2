@@ -84,6 +84,7 @@ typedef struct __mavlink_uavionix_adsb_out_dynamic_t {
  * @brief Pack a uavionix_adsb_out_dynamic message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param utcTime [s] UTC time in seconds since GPS epoch (Jan 6, 1980). If unknown set to UINT32_MAX
@@ -104,7 +105,7 @@ typedef struct __mavlink_uavionix_adsb_out_dynamic_t {
  * @param squawk  Mode A code (typically 1200 [0x04B0] for VFR)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint32_t utcTime, int32_t gpsLat, int32_t gpsLon, int32_t gpsAlt, uint8_t gpsFix, uint8_t numSats, int32_t baroAltMSL, uint32_t accuracyHor, uint16_t accuracyVert, uint16_t accuracyVel, int16_t velVert, int16_t velNS, int16_t VelEW, uint8_t emergencyStatus, uint16_t state, uint16_t squawk)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -150,13 +151,14 @@ static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_pack(uint8_t system
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_MIN_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_MIN_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_CRC);
 }
 
 /**
  * @brief Pack a uavionix_adsb_out_dynamic message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param utcTime [s] UTC time in seconds since GPS epoch (Jan 6, 1980). If unknown set to UINT32_MAX
@@ -177,7 +179,7 @@ static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_pack(uint8_t system
  * @param squawk  Mode A code (typically 1200 [0x04B0] for VFR)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t utcTime,int32_t gpsLat,int32_t gpsLon,int32_t gpsAlt,uint8_t gpsFix,uint8_t numSats,int32_t baroAltMSL,uint32_t accuracyHor,uint16_t accuracyVert,uint16_t accuracyVel,int16_t velVert,int16_t velNS,int16_t VelEW,uint8_t emergencyStatus,uint16_t state,uint16_t squawk)
 {
@@ -224,7 +226,7 @@ static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_pack_chan(uint8_t s
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_MIN_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_MIN_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_LEN, MAVLINK_MSG_ID_UAVIONIX_ADSB_OUT_DYNAMIC_CRC);
 }
 
 /**
@@ -232,12 +234,13 @@ static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_pack_chan(uint8_t s
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param uavionix_adsb_out_dynamic C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavionix_adsb_out_dynamic_t* uavionix_adsb_out_dynamic)
+static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_uavionix_adsb_out_dynamic_t* uavionix_adsb_out_dynamic)
 {
-    return mavlink_msg_uavionix_adsb_out_dynamic_pack(system_id, component_id, msg, uavionix_adsb_out_dynamic->utcTime, uavionix_adsb_out_dynamic->gpsLat, uavionix_adsb_out_dynamic->gpsLon, uavionix_adsb_out_dynamic->gpsAlt, uavionix_adsb_out_dynamic->gpsFix, uavionix_adsb_out_dynamic->numSats, uavionix_adsb_out_dynamic->baroAltMSL, uavionix_adsb_out_dynamic->accuracyHor, uavionix_adsb_out_dynamic->accuracyVert, uavionix_adsb_out_dynamic->accuracyVel, uavionix_adsb_out_dynamic->velVert, uavionix_adsb_out_dynamic->velNS, uavionix_adsb_out_dynamic->VelEW, uavionix_adsb_out_dynamic->emergencyStatus, uavionix_adsb_out_dynamic->state, uavionix_adsb_out_dynamic->squawk);
+    return mavlink_msg_uavionix_adsb_out_dynamic_pack(system_id, component_id, group_id, msg, uavionix_adsb_out_dynamic->utcTime, uavionix_adsb_out_dynamic->gpsLat, uavionix_adsb_out_dynamic->gpsLon, uavionix_adsb_out_dynamic->gpsAlt, uavionix_adsb_out_dynamic->gpsFix, uavionix_adsb_out_dynamic->numSats, uavionix_adsb_out_dynamic->baroAltMSL, uavionix_adsb_out_dynamic->accuracyHor, uavionix_adsb_out_dynamic->accuracyVert, uavionix_adsb_out_dynamic->accuracyVel, uavionix_adsb_out_dynamic->velVert, uavionix_adsb_out_dynamic->velNS, uavionix_adsb_out_dynamic->VelEW, uavionix_adsb_out_dynamic->emergencyStatus, uavionix_adsb_out_dynamic->state, uavionix_adsb_out_dynamic->squawk);
 }
 
 /**
@@ -245,13 +248,14 @@ static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_encode(uint8_t syst
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param uavionix_adsb_out_dynamic C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavionix_adsb_out_dynamic_t* uavionix_adsb_out_dynamic)
+static inline uint16_t mavlink_msg_uavionix_adsb_out_dynamic_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavionix_adsb_out_dynamic_t* uavionix_adsb_out_dynamic)
 {
-    return mavlink_msg_uavionix_adsb_out_dynamic_pack_chan(system_id, component_id, chan, msg, uavionix_adsb_out_dynamic->utcTime, uavionix_adsb_out_dynamic->gpsLat, uavionix_adsb_out_dynamic->gpsLon, uavionix_adsb_out_dynamic->gpsAlt, uavionix_adsb_out_dynamic->gpsFix, uavionix_adsb_out_dynamic->numSats, uavionix_adsb_out_dynamic->baroAltMSL, uavionix_adsb_out_dynamic->accuracyHor, uavionix_adsb_out_dynamic->accuracyVert, uavionix_adsb_out_dynamic->accuracyVel, uavionix_adsb_out_dynamic->velVert, uavionix_adsb_out_dynamic->velNS, uavionix_adsb_out_dynamic->VelEW, uavionix_adsb_out_dynamic->emergencyStatus, uavionix_adsb_out_dynamic->state, uavionix_adsb_out_dynamic->squawk);
+    return mavlink_msg_uavionix_adsb_out_dynamic_pack_chan(system_id, component_id, group_id, chan, msg, uavionix_adsb_out_dynamic->utcTime, uavionix_adsb_out_dynamic->gpsLat, uavionix_adsb_out_dynamic->gpsLon, uavionix_adsb_out_dynamic->gpsAlt, uavionix_adsb_out_dynamic->gpsFix, uavionix_adsb_out_dynamic->numSats, uavionix_adsb_out_dynamic->baroAltMSL, uavionix_adsb_out_dynamic->accuracyHor, uavionix_adsb_out_dynamic->accuracyVert, uavionix_adsb_out_dynamic->accuracyVel, uavionix_adsb_out_dynamic->velVert, uavionix_adsb_out_dynamic->velNS, uavionix_adsb_out_dynamic->VelEW, uavionix_adsb_out_dynamic->emergencyStatus, uavionix_adsb_out_dynamic->state, uavionix_adsb_out_dynamic->squawk);
 }
 
 /**

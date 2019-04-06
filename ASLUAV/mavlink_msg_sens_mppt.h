@@ -75,6 +75,7 @@ typedef struct __mavlink_sens_mppt_t {
  * @brief Pack a sens_mppt message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param mppt_timestamp [us]  MPPT last timestamp 
@@ -92,7 +93,7 @@ typedef struct __mavlink_sens_mppt_t {
  * @param mppt3_status   MPPT3 status 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sens_mppt_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_sens_mppt_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint64_t mppt_timestamp, float mppt1_volt, float mppt1_amp, uint16_t mppt1_pwm, uint8_t mppt1_status, float mppt2_volt, float mppt2_amp, uint16_t mppt2_pwm, uint8_t mppt2_status, float mppt3_volt, float mppt3_amp, uint16_t mppt3_pwm, uint8_t mppt3_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -132,13 +133,14 @@ static inline uint16_t mavlink_msg_sens_mppt_pack(uint8_t system_id, uint8_t com
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SENS_MPPT;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SENS_MPPT_MIN_LEN, MAVLINK_MSG_ID_SENS_MPPT_LEN, MAVLINK_MSG_ID_SENS_MPPT_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_SENS_MPPT_MIN_LEN, MAVLINK_MSG_ID_SENS_MPPT_LEN, MAVLINK_MSG_ID_SENS_MPPT_CRC);
 }
 
 /**
  * @brief Pack a sens_mppt message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param mppt_timestamp [us]  MPPT last timestamp 
@@ -156,7 +158,7 @@ static inline uint16_t mavlink_msg_sens_mppt_pack(uint8_t system_id, uint8_t com
  * @param mppt3_status   MPPT3 status 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sens_mppt_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_sens_mppt_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t mppt_timestamp,float mppt1_volt,float mppt1_amp,uint16_t mppt1_pwm,uint8_t mppt1_status,float mppt2_volt,float mppt2_amp,uint16_t mppt2_pwm,uint8_t mppt2_status,float mppt3_volt,float mppt3_amp,uint16_t mppt3_pwm,uint8_t mppt3_status)
 {
@@ -197,7 +199,7 @@ static inline uint16_t mavlink_msg_sens_mppt_pack_chan(uint8_t system_id, uint8_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SENS_MPPT;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SENS_MPPT_MIN_LEN, MAVLINK_MSG_ID_SENS_MPPT_LEN, MAVLINK_MSG_ID_SENS_MPPT_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_SENS_MPPT_MIN_LEN, MAVLINK_MSG_ID_SENS_MPPT_LEN, MAVLINK_MSG_ID_SENS_MPPT_CRC);
 }
 
 /**
@@ -205,12 +207,13 @@ static inline uint16_t mavlink_msg_sens_mppt_pack_chan(uint8_t system_id, uint8_
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param sens_mppt C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sens_mppt_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sens_mppt_t* sens_mppt)
+static inline uint16_t mavlink_msg_sens_mppt_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_sens_mppt_t* sens_mppt)
 {
-    return mavlink_msg_sens_mppt_pack(system_id, component_id, msg, sens_mppt->mppt_timestamp, sens_mppt->mppt1_volt, sens_mppt->mppt1_amp, sens_mppt->mppt1_pwm, sens_mppt->mppt1_status, sens_mppt->mppt2_volt, sens_mppt->mppt2_amp, sens_mppt->mppt2_pwm, sens_mppt->mppt2_status, sens_mppt->mppt3_volt, sens_mppt->mppt3_amp, sens_mppt->mppt3_pwm, sens_mppt->mppt3_status);
+    return mavlink_msg_sens_mppt_pack(system_id, component_id, group_id, msg, sens_mppt->mppt_timestamp, sens_mppt->mppt1_volt, sens_mppt->mppt1_amp, sens_mppt->mppt1_pwm, sens_mppt->mppt1_status, sens_mppt->mppt2_volt, sens_mppt->mppt2_amp, sens_mppt->mppt2_pwm, sens_mppt->mppt2_status, sens_mppt->mppt3_volt, sens_mppt->mppt3_amp, sens_mppt->mppt3_pwm, sens_mppt->mppt3_status);
 }
 
 /**
@@ -218,13 +221,14 @@ static inline uint16_t mavlink_msg_sens_mppt_encode(uint8_t system_id, uint8_t c
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param sens_mppt C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sens_mppt_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sens_mppt_t* sens_mppt)
+static inline uint16_t mavlink_msg_sens_mppt_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sens_mppt_t* sens_mppt)
 {
-    return mavlink_msg_sens_mppt_pack_chan(system_id, component_id, chan, msg, sens_mppt->mppt_timestamp, sens_mppt->mppt1_volt, sens_mppt->mppt1_amp, sens_mppt->mppt1_pwm, sens_mppt->mppt1_status, sens_mppt->mppt2_volt, sens_mppt->mppt2_amp, sens_mppt->mppt2_pwm, sens_mppt->mppt2_status, sens_mppt->mppt3_volt, sens_mppt->mppt3_amp, sens_mppt->mppt3_pwm, sens_mppt->mppt3_status);
+    return mavlink_msg_sens_mppt_pack_chan(system_id, component_id, group_id, chan, msg, sens_mppt->mppt_timestamp, sens_mppt->mppt1_volt, sens_mppt->mppt1_amp, sens_mppt->mppt1_pwm, sens_mppt->mppt1_status, sens_mppt->mppt2_volt, sens_mppt->mppt2_amp, sens_mppt->mppt2_pwm, sens_mppt->mppt2_status, sens_mppt->mppt3_volt, sens_mppt->mppt3_amp, sens_mppt->mppt3_pwm, sens_mppt->mppt3_status);
 }
 
 /**

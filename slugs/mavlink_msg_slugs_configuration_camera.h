@@ -45,6 +45,7 @@ typedef struct __mavlink_slugs_configuration_camera_t {
  * @brief Pack a slugs_configuration_camera message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param target  The system setting the commands
@@ -52,7 +53,7 @@ typedef struct __mavlink_slugs_configuration_camera_t {
  * @param order   1: up/on 2: down/off 3: auto/reset/no action
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_slugs_configuration_camera_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_slugs_configuration_camera_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t target, uint8_t idOrder, uint8_t order)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -72,13 +73,14 @@ static inline uint16_t mavlink_msg_slugs_configuration_camera_pack(uint8_t syste
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_MIN_LEN, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_LEN, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_MIN_LEN, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_LEN, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_CRC);
 }
 
 /**
  * @brief Pack a slugs_configuration_camera message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param target  The system setting the commands
@@ -86,7 +88,7 @@ static inline uint16_t mavlink_msg_slugs_configuration_camera_pack(uint8_t syste
  * @param order   1: up/on 2: down/off 3: auto/reset/no action
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_slugs_configuration_camera_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_slugs_configuration_camera_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t target,uint8_t idOrder,uint8_t order)
 {
@@ -107,7 +109,7 @@ static inline uint16_t mavlink_msg_slugs_configuration_camera_pack_chan(uint8_t 
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_MIN_LEN, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_LEN, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_MIN_LEN, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_LEN, MAVLINK_MSG_ID_SLUGS_CONFIGURATION_CAMERA_CRC);
 }
 
 /**
@@ -115,12 +117,13 @@ static inline uint16_t mavlink_msg_slugs_configuration_camera_pack_chan(uint8_t 
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param slugs_configuration_camera C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_slugs_configuration_camera_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_slugs_configuration_camera_t* slugs_configuration_camera)
+static inline uint16_t mavlink_msg_slugs_configuration_camera_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_slugs_configuration_camera_t* slugs_configuration_camera)
 {
-    return mavlink_msg_slugs_configuration_camera_pack(system_id, component_id, msg, slugs_configuration_camera->target, slugs_configuration_camera->idOrder, slugs_configuration_camera->order);
+    return mavlink_msg_slugs_configuration_camera_pack(system_id, component_id, group_id, msg, slugs_configuration_camera->target, slugs_configuration_camera->idOrder, slugs_configuration_camera->order);
 }
 
 /**
@@ -128,13 +131,14 @@ static inline uint16_t mavlink_msg_slugs_configuration_camera_encode(uint8_t sys
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param slugs_configuration_camera C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_slugs_configuration_camera_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_slugs_configuration_camera_t* slugs_configuration_camera)
+static inline uint16_t mavlink_msg_slugs_configuration_camera_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_slugs_configuration_camera_t* slugs_configuration_camera)
 {
-    return mavlink_msg_slugs_configuration_camera_pack_chan(system_id, component_id, chan, msg, slugs_configuration_camera->target, slugs_configuration_camera->idOrder, slugs_configuration_camera->order);
+    return mavlink_msg_slugs_configuration_camera_pack_chan(system_id, component_id, group_id, chan, msg, slugs_configuration_camera->target, slugs_configuration_camera->idOrder, slugs_configuration_camera->order);
 }
 
 /**

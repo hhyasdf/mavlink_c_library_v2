@@ -48,6 +48,7 @@ typedef struct __mavlink_remote_log_data_block_t {
  * @brief Pack a remote_log_data_block message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param target_system  System ID.
@@ -56,7 +57,7 @@ typedef struct __mavlink_remote_log_data_block_t {
  * @param data  Log data block.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_remote_log_data_block_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_remote_log_data_block_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t target_system, uint8_t target_component, uint32_t seqno, const uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -76,13 +77,14 @@ static inline uint16_t mavlink_msg_remote_log_data_block_pack(uint8_t system_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_MIN_LEN, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_LEN, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_MIN_LEN, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_LEN, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_CRC);
 }
 
 /**
  * @brief Pack a remote_log_data_block message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param target_system  System ID.
@@ -91,7 +93,7 @@ static inline uint16_t mavlink_msg_remote_log_data_block_pack(uint8_t system_id,
  * @param data  Log data block.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_remote_log_data_block_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_remote_log_data_block_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t target_system,uint8_t target_component,uint32_t seqno,const uint8_t *data)
 {
@@ -112,7 +114,7 @@ static inline uint16_t mavlink_msg_remote_log_data_block_pack_chan(uint8_t syste
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_MIN_LEN, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_LEN, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_MIN_LEN, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_LEN, MAVLINK_MSG_ID_REMOTE_LOG_DATA_BLOCK_CRC);
 }
 
 /**
@@ -120,12 +122,13 @@ static inline uint16_t mavlink_msg_remote_log_data_block_pack_chan(uint8_t syste
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param remote_log_data_block C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_remote_log_data_block_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_remote_log_data_block_t* remote_log_data_block)
+static inline uint16_t mavlink_msg_remote_log_data_block_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_remote_log_data_block_t* remote_log_data_block)
 {
-    return mavlink_msg_remote_log_data_block_pack(system_id, component_id, msg, remote_log_data_block->target_system, remote_log_data_block->target_component, remote_log_data_block->seqno, remote_log_data_block->data);
+    return mavlink_msg_remote_log_data_block_pack(system_id, component_id, group_id, msg, remote_log_data_block->target_system, remote_log_data_block->target_component, remote_log_data_block->seqno, remote_log_data_block->data);
 }
 
 /**
@@ -133,13 +136,14 @@ static inline uint16_t mavlink_msg_remote_log_data_block_encode(uint8_t system_i
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param remote_log_data_block C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_remote_log_data_block_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_remote_log_data_block_t* remote_log_data_block)
+static inline uint16_t mavlink_msg_remote_log_data_block_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_remote_log_data_block_t* remote_log_data_block)
 {
-    return mavlink_msg_remote_log_data_block_pack_chan(system_id, component_id, chan, msg, remote_log_data_block->target_system, remote_log_data_block->target_component, remote_log_data_block->seqno, remote_log_data_block->data);
+    return mavlink_msg_remote_log_data_block_pack_chan(system_id, component_id, group_id, chan, msg, remote_log_data_block->target_system, remote_log_data_block->target_component, remote_log_data_block->seqno, remote_log_data_block->data);
 }
 
 /**

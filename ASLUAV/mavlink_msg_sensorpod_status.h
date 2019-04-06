@@ -60,6 +60,7 @@ typedef struct __mavlink_sensorpod_status_t {
  * @brief Pack a sensorpod_status message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param timestamp [ms] Timestamp in linuxtime (since 1.1.1970)
@@ -72,7 +73,7 @@ typedef struct __mavlink_sensorpod_status_t {
  * @param free_space  Free space available in recordings directory in [Gb] * 1e2
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sensorpod_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_sensorpod_status_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint64_t timestamp, uint8_t visensor_rate_1, uint8_t visensor_rate_2, uint8_t visensor_rate_3, uint8_t visensor_rate_4, uint8_t recording_nodes_count, uint8_t cpu_temp, uint16_t free_space)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -102,13 +103,14 @@ static inline uint16_t mavlink_msg_sensorpod_status_pack(uint8_t system_id, uint
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SENSORPOD_STATUS;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SENSORPOD_STATUS_MIN_LEN, MAVLINK_MSG_ID_SENSORPOD_STATUS_LEN, MAVLINK_MSG_ID_SENSORPOD_STATUS_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_SENSORPOD_STATUS_MIN_LEN, MAVLINK_MSG_ID_SENSORPOD_STATUS_LEN, MAVLINK_MSG_ID_SENSORPOD_STATUS_CRC);
 }
 
 /**
  * @brief Pack a sensorpod_status message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param timestamp [ms] Timestamp in linuxtime (since 1.1.1970)
@@ -121,7 +123,7 @@ static inline uint16_t mavlink_msg_sensorpod_status_pack(uint8_t system_id, uint
  * @param free_space  Free space available in recordings directory in [Gb] * 1e2
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sensorpod_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_sensorpod_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint64_t timestamp,uint8_t visensor_rate_1,uint8_t visensor_rate_2,uint8_t visensor_rate_3,uint8_t visensor_rate_4,uint8_t recording_nodes_count,uint8_t cpu_temp,uint16_t free_space)
 {
@@ -152,7 +154,7 @@ static inline uint16_t mavlink_msg_sensorpod_status_pack_chan(uint8_t system_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SENSORPOD_STATUS;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SENSORPOD_STATUS_MIN_LEN, MAVLINK_MSG_ID_SENSORPOD_STATUS_LEN, MAVLINK_MSG_ID_SENSORPOD_STATUS_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_SENSORPOD_STATUS_MIN_LEN, MAVLINK_MSG_ID_SENSORPOD_STATUS_LEN, MAVLINK_MSG_ID_SENSORPOD_STATUS_CRC);
 }
 
 /**
@@ -160,12 +162,13 @@ static inline uint16_t mavlink_msg_sensorpod_status_pack_chan(uint8_t system_id,
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param sensorpod_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sensorpod_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sensorpod_status_t* sensorpod_status)
+static inline uint16_t mavlink_msg_sensorpod_status_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_sensorpod_status_t* sensorpod_status)
 {
-    return mavlink_msg_sensorpod_status_pack(system_id, component_id, msg, sensorpod_status->timestamp, sensorpod_status->visensor_rate_1, sensorpod_status->visensor_rate_2, sensorpod_status->visensor_rate_3, sensorpod_status->visensor_rate_4, sensorpod_status->recording_nodes_count, sensorpod_status->cpu_temp, sensorpod_status->free_space);
+    return mavlink_msg_sensorpod_status_pack(system_id, component_id, group_id, msg, sensorpod_status->timestamp, sensorpod_status->visensor_rate_1, sensorpod_status->visensor_rate_2, sensorpod_status->visensor_rate_3, sensorpod_status->visensor_rate_4, sensorpod_status->recording_nodes_count, sensorpod_status->cpu_temp, sensorpod_status->free_space);
 }
 
 /**
@@ -173,13 +176,14 @@ static inline uint16_t mavlink_msg_sensorpod_status_encode(uint8_t system_id, ui
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param sensorpod_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sensorpod_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sensorpod_status_t* sensorpod_status)
+static inline uint16_t mavlink_msg_sensorpod_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sensorpod_status_t* sensorpod_status)
 {
-    return mavlink_msg_sensorpod_status_pack_chan(system_id, component_id, chan, msg, sensorpod_status->timestamp, sensorpod_status->visensor_rate_1, sensorpod_status->visensor_rate_2, sensorpod_status->visensor_rate_3, sensorpod_status->visensor_rate_4, sensorpod_status->recording_nodes_count, sensorpod_status->cpu_temp, sensorpod_status->free_space);
+    return mavlink_msg_sensorpod_status_pack_chan(system_id, component_id, group_id, chan, msg, sensorpod_status->timestamp, sensorpod_status->visensor_rate_1, sensorpod_status->visensor_rate_2, sensorpod_status->visensor_rate_3, sensorpod_status->visensor_rate_4, sensorpod_status->recording_nodes_count, sensorpod_status->cpu_temp, sensorpod_status->free_space);
 }
 
 /**

@@ -54,6 +54,7 @@ typedef struct __mavlink_uav_status_t {
  * @brief Pack a uav_status message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param target  The ID system reporting the action
@@ -64,7 +65,7 @@ typedef struct __mavlink_uav_status_t {
  * @param course  Course UAV
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uav_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_uav_status_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t target, float latitude, float longitude, float altitude, float speed, float course)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -90,13 +91,14 @@ static inline uint16_t mavlink_msg_uav_status_pack(uint8_t system_id, uint8_t co
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_UAV_STATUS;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_UAV_STATUS_MIN_LEN, MAVLINK_MSG_ID_UAV_STATUS_LEN, MAVLINK_MSG_ID_UAV_STATUS_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_UAV_STATUS_MIN_LEN, MAVLINK_MSG_ID_UAV_STATUS_LEN, MAVLINK_MSG_ID_UAV_STATUS_CRC);
 }
 
 /**
  * @brief Pack a uav_status message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param target  The ID system reporting the action
@@ -107,7 +109,7 @@ static inline uint16_t mavlink_msg_uav_status_pack(uint8_t system_id, uint8_t co
  * @param course  Course UAV
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_uav_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_uav_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t target,float latitude,float longitude,float altitude,float speed,float course)
 {
@@ -134,7 +136,7 @@ static inline uint16_t mavlink_msg_uav_status_pack_chan(uint8_t system_id, uint8
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_UAV_STATUS;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_UAV_STATUS_MIN_LEN, MAVLINK_MSG_ID_UAV_STATUS_LEN, MAVLINK_MSG_ID_UAV_STATUS_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_UAV_STATUS_MIN_LEN, MAVLINK_MSG_ID_UAV_STATUS_LEN, MAVLINK_MSG_ID_UAV_STATUS_CRC);
 }
 
 /**
@@ -142,12 +144,13 @@ static inline uint16_t mavlink_msg_uav_status_pack_chan(uint8_t system_id, uint8
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param uav_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uav_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uav_status_t* uav_status)
+static inline uint16_t mavlink_msg_uav_status_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_uav_status_t* uav_status)
 {
-    return mavlink_msg_uav_status_pack(system_id, component_id, msg, uav_status->target, uav_status->latitude, uav_status->longitude, uav_status->altitude, uav_status->speed, uav_status->course);
+    return mavlink_msg_uav_status_pack(system_id, component_id, group_id, msg, uav_status->target, uav_status->latitude, uav_status->longitude, uav_status->altitude, uav_status->speed, uav_status->course);
 }
 
 /**
@@ -155,13 +158,14 @@ static inline uint16_t mavlink_msg_uav_status_encode(uint8_t system_id, uint8_t 
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param uav_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_uav_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uav_status_t* uav_status)
+static inline uint16_t mavlink_msg_uav_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uav_status_t* uav_status)
 {
-    return mavlink_msg_uav_status_pack_chan(system_id, component_id, chan, msg, uav_status->target, uav_status->latitude, uav_status->longitude, uav_status->altitude, uav_status->speed, uav_status->course);
+    return mavlink_msg_uav_status_pack_chan(system_id, component_id, group_id, chan, msg, uav_status->target, uav_status->latitude, uav_status->longitude, uav_status->altitude, uav_status->speed, uav_status->course);
 }
 
 /**

@@ -54,6 +54,7 @@ typedef struct __mavlink_data_log_t {
  * @brief Pack a data_log message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param fl_1  Log value 1 
@@ -64,7 +65,7 @@ typedef struct __mavlink_data_log_t {
  * @param fl_6  Log value 6 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_data_log_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_data_log_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                float fl_1, float fl_2, float fl_3, float fl_4, float fl_5, float fl_6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -90,13 +91,14 @@ static inline uint16_t mavlink_msg_data_log_pack(uint8_t system_id, uint8_t comp
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_DATA_LOG;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_DATA_LOG_MIN_LEN, MAVLINK_MSG_ID_DATA_LOG_LEN, MAVLINK_MSG_ID_DATA_LOG_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_DATA_LOG_MIN_LEN, MAVLINK_MSG_ID_DATA_LOG_LEN, MAVLINK_MSG_ID_DATA_LOG_CRC);
 }
 
 /**
  * @brief Pack a data_log message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param fl_1  Log value 1 
@@ -107,7 +109,7 @@ static inline uint16_t mavlink_msg_data_log_pack(uint8_t system_id, uint8_t comp
  * @param fl_6  Log value 6 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_data_log_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_data_log_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    float fl_1,float fl_2,float fl_3,float fl_4,float fl_5,float fl_6)
 {
@@ -134,7 +136,7 @@ static inline uint16_t mavlink_msg_data_log_pack_chan(uint8_t system_id, uint8_t
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_DATA_LOG;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_DATA_LOG_MIN_LEN, MAVLINK_MSG_ID_DATA_LOG_LEN, MAVLINK_MSG_ID_DATA_LOG_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_DATA_LOG_MIN_LEN, MAVLINK_MSG_ID_DATA_LOG_LEN, MAVLINK_MSG_ID_DATA_LOG_CRC);
 }
 
 /**
@@ -142,12 +144,13 @@ static inline uint16_t mavlink_msg_data_log_pack_chan(uint8_t system_id, uint8_t
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param data_log C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_data_log_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_data_log_t* data_log)
+static inline uint16_t mavlink_msg_data_log_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_data_log_t* data_log)
 {
-    return mavlink_msg_data_log_pack(system_id, component_id, msg, data_log->fl_1, data_log->fl_2, data_log->fl_3, data_log->fl_4, data_log->fl_5, data_log->fl_6);
+    return mavlink_msg_data_log_pack(system_id, component_id, group_id, msg, data_log->fl_1, data_log->fl_2, data_log->fl_3, data_log->fl_4, data_log->fl_5, data_log->fl_6);
 }
 
 /**
@@ -155,13 +158,14 @@ static inline uint16_t mavlink_msg_data_log_encode(uint8_t system_id, uint8_t co
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param data_log C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_data_log_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_data_log_t* data_log)
+static inline uint16_t mavlink_msg_data_log_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_data_log_t* data_log)
 {
-    return mavlink_msg_data_log_pack_chan(system_id, component_id, chan, msg, data_log->fl_1, data_log->fl_2, data_log->fl_3, data_log->fl_4, data_log->fl_5, data_log->fl_6);
+    return mavlink_msg_data_log_pack_chan(system_id, component_id, group_id, chan, msg, data_log->fl_1, data_log->fl_2, data_log->fl_3, data_log->fl_4, data_log->fl_5, data_log->fl_6);
 }
 
 /**

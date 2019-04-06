@@ -49,6 +49,7 @@ typedef struct __mavlink_play_tune_t {
  * @brief Pack a play_tune message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param target_system  System ID
@@ -57,7 +58,7 @@ typedef struct __mavlink_play_tune_t {
  * @param tune2  tune extension (appended to tune)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_play_tune_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_play_tune_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t target_system, uint8_t target_component, const char *tune, const char *tune2)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -77,13 +78,14 @@ static inline uint16_t mavlink_msg_play_tune_pack(uint8_t system_id, uint8_t com
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_PLAY_TUNE;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_PLAY_TUNE_MIN_LEN, MAVLINK_MSG_ID_PLAY_TUNE_LEN, MAVLINK_MSG_ID_PLAY_TUNE_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_PLAY_TUNE_MIN_LEN, MAVLINK_MSG_ID_PLAY_TUNE_LEN, MAVLINK_MSG_ID_PLAY_TUNE_CRC);
 }
 
 /**
  * @brief Pack a play_tune message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param target_system  System ID
@@ -92,7 +94,7 @@ static inline uint16_t mavlink_msg_play_tune_pack(uint8_t system_id, uint8_t com
  * @param tune2  tune extension (appended to tune)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_play_tune_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_play_tune_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t target_system,uint8_t target_component,const char *tune,const char *tune2)
 {
@@ -113,7 +115,7 @@ static inline uint16_t mavlink_msg_play_tune_pack_chan(uint8_t system_id, uint8_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_PLAY_TUNE;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_PLAY_TUNE_MIN_LEN, MAVLINK_MSG_ID_PLAY_TUNE_LEN, MAVLINK_MSG_ID_PLAY_TUNE_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_PLAY_TUNE_MIN_LEN, MAVLINK_MSG_ID_PLAY_TUNE_LEN, MAVLINK_MSG_ID_PLAY_TUNE_CRC);
 }
 
 /**
@@ -121,12 +123,13 @@ static inline uint16_t mavlink_msg_play_tune_pack_chan(uint8_t system_id, uint8_
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param play_tune C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_play_tune_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_play_tune_t* play_tune)
+static inline uint16_t mavlink_msg_play_tune_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_play_tune_t* play_tune)
 {
-    return mavlink_msg_play_tune_pack(system_id, component_id, msg, play_tune->target_system, play_tune->target_component, play_tune->tune, play_tune->tune2);
+    return mavlink_msg_play_tune_pack(system_id, component_id, group_id, msg, play_tune->target_system, play_tune->target_component, play_tune->tune, play_tune->tune2);
 }
 
 /**
@@ -134,13 +137,14 @@ static inline uint16_t mavlink_msg_play_tune_encode(uint8_t system_id, uint8_t c
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param play_tune C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_play_tune_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_play_tune_t* play_tune)
+static inline uint16_t mavlink_msg_play_tune_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_play_tune_t* play_tune)
 {
-    return mavlink_msg_play_tune_pack_chan(system_id, component_id, chan, msg, play_tune->target_system, play_tune->target_component, play_tune->tune, play_tune->tune2);
+    return mavlink_msg_play_tune_pack_chan(system_id, component_id, group_id, chan, msg, play_tune->target_system, play_tune->target_component, play_tune->tune, play_tune->tune2);
 }
 
 /**

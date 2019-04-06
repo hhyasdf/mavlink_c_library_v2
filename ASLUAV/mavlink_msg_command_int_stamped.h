@@ -81,6 +81,7 @@ typedef struct __mavlink_command_int_stamped_t {
  * @brief Pack a command_int_stamped message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param utc_time  UTC time, seconds elapsed since 01.01.1970
@@ -100,7 +101,7 @@ typedef struct __mavlink_command_int_stamped_t {
  * @param z  PARAM7 / z position: global: altitude in meters (MSL, WGS84, AGL or relative to home - depending on frame).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_command_int_stamped_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_command_int_stamped_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint32_t utc_time, uint64_t vehicle_timestamp, uint8_t target_system, uint8_t target_component, uint8_t frame, uint16_t command, uint8_t current, uint8_t autocontinue, float param1, float param2, float param3, float param4, int32_t x, int32_t y, float z)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -144,13 +145,14 @@ static inline uint16_t mavlink_msg_command_int_stamped_pack(uint8_t system_id, u
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_COMMAND_INT_STAMPED;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_MIN_LEN, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_LEN, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_MIN_LEN, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_LEN, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_CRC);
 }
 
 /**
  * @brief Pack a command_int_stamped message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param utc_time  UTC time, seconds elapsed since 01.01.1970
@@ -170,7 +172,7 @@ static inline uint16_t mavlink_msg_command_int_stamped_pack(uint8_t system_id, u
  * @param z  PARAM7 / z position: global: altitude in meters (MSL, WGS84, AGL or relative to home - depending on frame).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_command_int_stamped_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_command_int_stamped_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint32_t utc_time,uint64_t vehicle_timestamp,uint8_t target_system,uint8_t target_component,uint8_t frame,uint16_t command,uint8_t current,uint8_t autocontinue,float param1,float param2,float param3,float param4,int32_t x,int32_t y,float z)
 {
@@ -215,7 +217,7 @@ static inline uint16_t mavlink_msg_command_int_stamped_pack_chan(uint8_t system_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_COMMAND_INT_STAMPED;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_MIN_LEN, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_LEN, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_MIN_LEN, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_LEN, MAVLINK_MSG_ID_COMMAND_INT_STAMPED_CRC);
 }
 
 /**
@@ -223,12 +225,13 @@ static inline uint16_t mavlink_msg_command_int_stamped_pack_chan(uint8_t system_
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param command_int_stamped C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_command_int_stamped_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_command_int_stamped_t* command_int_stamped)
+static inline uint16_t mavlink_msg_command_int_stamped_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_command_int_stamped_t* command_int_stamped)
 {
-    return mavlink_msg_command_int_stamped_pack(system_id, component_id, msg, command_int_stamped->utc_time, command_int_stamped->vehicle_timestamp, command_int_stamped->target_system, command_int_stamped->target_component, command_int_stamped->frame, command_int_stamped->command, command_int_stamped->current, command_int_stamped->autocontinue, command_int_stamped->param1, command_int_stamped->param2, command_int_stamped->param3, command_int_stamped->param4, command_int_stamped->x, command_int_stamped->y, command_int_stamped->z);
+    return mavlink_msg_command_int_stamped_pack(system_id, component_id, group_id, msg, command_int_stamped->utc_time, command_int_stamped->vehicle_timestamp, command_int_stamped->target_system, command_int_stamped->target_component, command_int_stamped->frame, command_int_stamped->command, command_int_stamped->current, command_int_stamped->autocontinue, command_int_stamped->param1, command_int_stamped->param2, command_int_stamped->param3, command_int_stamped->param4, command_int_stamped->x, command_int_stamped->y, command_int_stamped->z);
 }
 
 /**
@@ -236,13 +239,14 @@ static inline uint16_t mavlink_msg_command_int_stamped_encode(uint8_t system_id,
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param command_int_stamped C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_command_int_stamped_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_command_int_stamped_t* command_int_stamped)
+static inline uint16_t mavlink_msg_command_int_stamped_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_command_int_stamped_t* command_int_stamped)
 {
-    return mavlink_msg_command_int_stamped_pack_chan(system_id, component_id, chan, msg, command_int_stamped->utc_time, command_int_stamped->vehicle_timestamp, command_int_stamped->target_system, command_int_stamped->target_component, command_int_stamped->frame, command_int_stamped->command, command_int_stamped->current, command_int_stamped->autocontinue, command_int_stamped->param1, command_int_stamped->param2, command_int_stamped->param3, command_int_stamped->param4, command_int_stamped->x, command_int_stamped->y, command_int_stamped->z);
+    return mavlink_msg_command_int_stamped_pack_chan(system_id, component_id, group_id, chan, msg, command_int_stamped->utc_time, command_int_stamped->vehicle_timestamp, command_int_stamped->target_system, command_int_stamped->target_component, command_int_stamped->frame, command_int_stamped->command, command_int_stamped->current, command_int_stamped->autocontinue, command_int_stamped->param1, command_int_stamped->param2, command_int_stamped->param3, command_int_stamped->param4, command_int_stamped->x, command_int_stamped->y, command_int_stamped->z);
 }
 
 /**

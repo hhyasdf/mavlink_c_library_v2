@@ -48,6 +48,7 @@ typedef struct __mavlink_file_transfer_protocol_t {
  * @brief Pack a file_transfer_protocol message
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  *
  * @param target_network  Network ID (0 for broadcast)
@@ -56,7 +57,7 @@ typedef struct __mavlink_file_transfer_protocol_t {
  * @param payload  Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_file_transfer_protocol_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static inline uint16_t mavlink_msg_file_transfer_protocol_pack(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg,
                                uint8_t target_network, uint8_t target_system, uint8_t target_component, const uint8_t *payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -76,13 +77,14 @@ static inline uint16_t mavlink_msg_file_transfer_protocol_pack(uint8_t system_id
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_MIN_LEN, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_LEN, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, group_id, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_MIN_LEN, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_LEN, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_CRC);
 }
 
 /**
  * @brief Pack a file_transfer_protocol message on a channel
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param target_network  Network ID (0 for broadcast)
@@ -91,7 +93,7 @@ static inline uint16_t mavlink_msg_file_transfer_protocol_pack(uint8_t system_id
  * @param payload  Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_file_transfer_protocol_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static inline uint16_t mavlink_msg_file_transfer_protocol_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan,
                                mavlink_message_t* msg,
                                    uint8_t target_network,uint8_t target_system,uint8_t target_component,const uint8_t *payload)
 {
@@ -112,7 +114,7 @@ static inline uint16_t mavlink_msg_file_transfer_protocol_pack_chan(uint8_t syst
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_MIN_LEN, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_LEN, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, group_id, chan, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_MIN_LEN, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_LEN, MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_CRC);
 }
 
 /**
@@ -120,12 +122,13 @@ static inline uint16_t mavlink_msg_file_transfer_protocol_pack_chan(uint8_t syst
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param msg The MAVLink message to compress the data into
  * @param file_transfer_protocol C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_file_transfer_protocol_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
+static inline uint16_t mavlink_msg_file_transfer_protocol_encode(uint8_t system_id, uint8_t component_id, uint8_t group_id, mavlink_message_t* msg, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
 {
-    return mavlink_msg_file_transfer_protocol_pack(system_id, component_id, msg, file_transfer_protocol->target_network, file_transfer_protocol->target_system, file_transfer_protocol->target_component, file_transfer_protocol->payload);
+    return mavlink_msg_file_transfer_protocol_pack(system_id, component_id, group_id, msg, file_transfer_protocol->target_network, file_transfer_protocol->target_system, file_transfer_protocol->target_component, file_transfer_protocol->payload);
 }
 
 /**
@@ -133,13 +136,14 @@ static inline uint16_t mavlink_msg_file_transfer_protocol_encode(uint8_t system_
  *
  * @param system_id ID of this system
  * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param group_id ID of this system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param file_transfer_protocol C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_file_transfer_protocol_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
+static inline uint16_t mavlink_msg_file_transfer_protocol_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t group_id, uint8_t chan, mavlink_message_t* msg, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
 {
-    return mavlink_msg_file_transfer_protocol_pack_chan(system_id, component_id, chan, msg, file_transfer_protocol->target_network, file_transfer_protocol->target_system, file_transfer_protocol->target_component, file_transfer_protocol->payload);
+    return mavlink_msg_file_transfer_protocol_pack_chan(system_id, component_id, group_id, chan, msg, file_transfer_protocol->target_network, file_transfer_protocol->target_system, file_transfer_protocol->target_component, file_transfer_protocol->payload);
 }
 
 /**
